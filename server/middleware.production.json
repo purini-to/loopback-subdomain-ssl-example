@@ -1,0 +1,16 @@
+{
+  "initial": {
+    "express-subdomain-handler": {
+      "params": {
+        "logger": false
+      }
+    }
+  },
+  "final:after": {
+    "loopback#errorHandler": {
+      "params": {
+        "includeStack": false
+      }
+    }
+  }
+}
