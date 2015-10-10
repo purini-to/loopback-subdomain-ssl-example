@@ -20,13 +20,14 @@ module.exports = function(User) {
   /**
    * ユーザー作成前にパスワードのハッシュ化を行う
    * 既にバリデーション処理でOKとなっている
-   * @param  {next} next 次の処理を行うコールバック関数
    * @param  {UserModel}   user ユーザーのモデル
+   * @param  {next} next 次の処理を行うコールバック関数
    */
-  User.beforeCreate = function(next, user) {
-    var password = user.password;
-    var salt = bcrypt.genSaltSync(this.constructor.settings.saltWorkFactor);
-    user.password = bcrypt.hashSync(user.password, salt);
+  User.observe('persist', function (user, next) {
+    var _user = (user.isNewInstance) ? user.currentInstance : user.data;
+    var password = _user.password;
+    var salt = bcrypt.genSaltSync(User.settings.saltWorkFactor);
+    _user.password = bcrypt.hashSync(password, salt);
     next();
-  };
+  });
 };
