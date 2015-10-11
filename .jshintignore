@@ -1,2 +1,5 @@
 /client/
+/test/
+/spec/
 /node_modules/
+/karma.conf.js

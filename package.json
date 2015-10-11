@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server/server.js",
   "scripts": {
-    "pretest": "jshint ."
+    "pretest": "jshint .",
+    "test": "node_modules/.bin/jasmine-node test"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -19,7 +20,10 @@
     "serve-favicon": "^2.0.1"
   },
   "devDependencies": {
-    "jshint": "^2.5.6"
+    "jasmine-core": "^2.3.4",
+    "jasmine-node": "^1.14.5",
+    "jshint": "^2.5.6",
+    "supertest": "^1.1.0"
   },
   "repository": {
     "type": "",

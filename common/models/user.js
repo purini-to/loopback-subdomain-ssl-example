@@ -24,10 +24,12 @@ module.exports = function(User) {
    * @param  {next} next 次の処理を行うコールバック関数
    */
   User.observe('persist', function (user, next) {
-    var _user = (user.isNewInstance) ? user.currentInstance : user.data;
-    var password = _user.password;
     var salt = bcrypt.genSaltSync(User.settings.saltWorkFactor);
-    _user.password = bcrypt.hashSync(password, salt);
+    var password = bcrypt.hashSync(user.data.password, salt);
+    user.data.password = password;
+    if (user.isNewInstance) {
+      user.currentInstance.password = password;
+    }
     next();
   });
 };

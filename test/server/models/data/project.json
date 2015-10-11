@@ -1,0 +1,70 @@
+{
+  "template": {
+    "project-lists": {
+      "projects": [{
+        "name": "project1",
+        "id": 1,
+        "ownerId": 1
+      }, {
+        "name": "project2",
+        "id": 2,
+        "ownerId": 2
+      }]
+    },
+    "regist-project": {
+      "name": "test",
+      "balance": 0,
+      "id": 1,
+      "ownerId": 1
+    },
+    "plus-donate": {
+      "id": 1,
+      "amount": 200
+    },
+    "sucess-donate": {
+      "success": true
+    },
+    "admin-login": {
+      "username": "Bob",
+      "password": "opensesame"
+    }
+  },
+  "ProjectModel Tests": {
+    "ゲストユーザーが使用した場合": {
+      "プロジェクトの一覧が取得できる": {
+        "${template}": "project-lists"
+      },
+      "プロジェクトの登録はできない": {
+        "send": {
+          "${template}": "regist-project"
+        }
+      },
+      "プロジェクトの残高は加算できない": {
+        "send": {
+          "${template}": "plus-donate"
+        }
+      }
+    },
+    "管理者ユーザーが使用した場合": {
+      "login": {
+        "${template}": "admin-login"
+      },
+      "プロジェクトの一覧が取得できる": {
+        "${template}": "project-lists"
+      },
+      "プロジェクトの登録はできない": {
+        "send": {
+          "${template}": "regist-project"
+        }
+      },
+      "プロジェクトの残高を加算できる": {
+        "send": {
+          "${template}": "plus-donate"
+        },
+        "expect": {
+          "${template}": "sucess-donate"
+        }
+      }
+    }
+  }
+}

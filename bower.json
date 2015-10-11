@@ -1,0 +1,19 @@
+{
+  "name": "loopback-subdomain-ssl-example",
+  "version": "0.0.0",
+  "homepage": "https://github.com/purini-to/loopback-subdomain-ssl-example",
+  "authors": [
+    "purini-to <poorian2546@gmail.com>"
+  ],
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
