@@ -17,6 +17,6 @@ var deepImport = function (importObj, app) {
 };
 
 module.exports = function (app) {
-  var imports = requireDir('../lib', {recurse: true});
+  var imports = requireDir('./role', {recurse: true});
   deepImport(imports, app);
 };

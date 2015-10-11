@@ -17,6 +17,12 @@
         "prefix": "team",
         "logger": true
       }
+    },
+    "morgan": {
+      "params": {
+        "format": "dev",
+        "immediate": true
+      }
     }
   },
   "session": {},
