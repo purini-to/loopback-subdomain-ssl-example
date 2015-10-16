@@ -1,0 +1,42 @@
+div.login-container.md-layout-column.md-layout-sm-fill.ng-cloak
+  md-toolbar.md-hue-2
+    .md-toolbar-tools.md-layout(layout-align="center")
+      h2.md-flex Mutter
+  md-content.md-padding.bg-view.flex-sm.md-layout.layout-align-center
+    md-card.flex
+      md-card-content.md-layout-column.flex
+        form.md-layout-colmun.layout-margin(ng-submit="newAccountForm.$invalid ? null : vm.save()", name="newAccountForm", novalidate="")
+          h2.md-title.md-layout(layout-align="center") アカウント登録
+          md-input-container.has-messages
+            label ユーザー名
+            input(ng-model="vm.account.username", type="text", name="username", required="", minlength="3", maxlength="30", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/", x-uniqueness="vm.validate.username.uniqueness", focus-me="{{!newAccountForm.$submited}}")
+            div(ng-messages="newAccountForm.username.$error")
+              div(ng-message="required") 必須入力です
+              div(ng-message="maxlength") 30文字以内で入力してください
+              div(ng-message="minlength") 3文字以上で入力してください
+              div(ng-message="pattern") 半角のみ有効です
+              div(ng-message="uniqueness") 既に登録されているユーザー名です
+          md-input-container.has-messages
+            label メールアドレス
+            input(ng-model="vm.account.email", type="email", name="email", required="", maxlength="30", x-uniqueness="vm.validate.email.uniqueness", x-format="vm.validate.email.format")
+            div(ng-messages="newAccountForm.email.$error")
+              div(ng-message="required") 必須入力です
+              div(ng-message="maxlength") 30文字以内で入力してください
+              div(ng-message="email") 正しいメールアドレスを入力してください
+              div(ng-message="format") 正しいメールアドレスを入力してください
+              div(ng-message="uniqueness") 既に登録されているメールアドレスです
+          md-input-container.has-messages
+            label パスワード
+            input(ng-model="vm.account.password", type="password", name="password", required="", minlength="5", maxlength="20", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/")
+            div(ng-messages="newAccountForm.password.$error")
+              div(ng-message="required") 必須入力です
+              div(ng-message="maxlength") 20文字以内で入力してください
+              div(ng-message="minlength") 5文字以上で入力してください
+              div(ng-message="pattern") 半角のみ有効です
+          md-input-container.has-messages
+            label パスワード再入力
+            input(ng-model="vm.passwordConfirm", type="password", name="passwordConfirm", data-match="vm.account.password")
+            div(ng-messages="newAccountForm.passwordConfirm.$error")
+              div(ng-message="match") パスワードが一致しません
+          .md-actions.md-layout.layout-align-end-center
+            md-button.md-raised.md-accent.flex-sm(type="submit", ng-disabled="newAccountForm.$invalid") 登録
