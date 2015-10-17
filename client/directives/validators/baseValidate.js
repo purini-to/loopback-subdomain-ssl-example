@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * 共通バリデーションクラス
+ */
 export default class BaseValidate {
   /**
    * 必須属性として'ngModel'を設定

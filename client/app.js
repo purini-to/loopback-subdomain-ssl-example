@@ -40,5 +40,9 @@ app.directive('appValidators', AppValidators.activate);
 app.directive('format', Format.activate);
 app.directive('uniqueness', Uniqueness.activate);
 
+// サービス系
+// Loopbackのgeneratorにより自動生成のため、クラス化されていない
+// 直接読み込みを行う
 require('./services/loopback/lb-services');
-require('./services/handler/errorHandler');
+import ErrorHandler from './services/handler/errorHandler';
+app.factory('errorHandler', ErrorHandler.activate);

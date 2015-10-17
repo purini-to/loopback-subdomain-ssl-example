@@ -44,7 +44,7 @@ export default class NewAccountController {
      * メールアドレスが不正な形式の場合はフラグを設定
      */
     this.saveFailedHandler = errorHandler
-      .errorStatusHandler(422, this.validate);
+      .factoryStatusHandle(422, this.validate);
     /**
      * アカウント作成成功時にトーストを表示する
      */

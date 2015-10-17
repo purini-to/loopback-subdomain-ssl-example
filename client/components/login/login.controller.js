@@ -1,6 +1,6 @@
 'use strict';
 
-import './login.styl';
+require('./login.styl');
 
 /**
  * ログイン画面のコントローラー
@@ -31,7 +31,7 @@ export default class LoginController {
      * @param  {Function} function ステータスコードに一致したエラー時の処理関数
      * @return {Throw}      エラーオブジェクト
      */
-    this.loginFailedHandler = errorHandler.errorStatusHandler(401, (err) => {
+    this.loginFailedHandler = errorHandler.factoryStatusHandle(401, (err) => {
       this.validate.faildedLogin = true;
       return err;
     });
