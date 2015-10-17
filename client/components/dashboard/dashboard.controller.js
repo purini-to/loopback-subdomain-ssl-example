@@ -1,11 +1,9 @@
 'use strict';
 
-require('./login.styl');
-
 /**
- * ログイン画面のコントローラー
+ * ダッシュボード画面のコントローラー
  */
-export default class LoginController {
+export default class DashboardController {
   /**
    * モデルの初期値登録とログイン失敗時のハンドラーを作成
    * @param  {[type]} $state       ui-routerオブジェクト
@@ -13,8 +11,9 @@ export default class LoginController {
    * @param  {[type]} UserModel    ユーザー情報モデル
    * @param  {[type]} errorHandler エラーハンドラー作成オブジェクト
    */
-  constructor($state, UserModel, errorHandler) {
+  constructor($state, User, UserModel, errorHandler) {
     this.state = $state;
+    this.User = User;
     this.user = UserModel;
     this.errorHandler = errorHandler;
     this.account = {
@@ -45,12 +44,7 @@ export default class LoginController {
    */
   login() {
     this.validate.faildedLogin = false;
-    this.user.login(this.account)
-      .then((token) => {
-        return this.user.findById();
-      }).then((token) => {
-        return this.user.findTeams();
-      }).then(this.tranDashboard.bind(this))
+    this.User.login(this.account).$promise.then(this.tranDashboard.bind(this))
       .catch(this.loginFailedHandler);
   }
 
@@ -59,6 +53,7 @@ export default class LoginController {
    * @param  {[type]} result ログイン成功オブジェクト
    */
   tranDashboard(result) {
+    this.user = result.user;
     this.state.go('newAccount');
   }
 
@@ -76,6 +71,7 @@ export default class LoginController {
  */
 LoginController.$inject = [
   '$state',
+  'User',
   'userModel',
   'errorHandler'
 ];

@@ -8,6 +8,7 @@ require('angular-resource');
 require('angular-ui-router');
 require('angular-messages');
 require('angular-validation-match');
+require('restangular');
 
 require('./style/app.styl');
 
@@ -18,6 +19,7 @@ export var app = angular.module('app', [
   'ngAria',
   'ngMaterial',
   'lbServices',
+  'restangular',
   'ui.router',
   'validation.match'
 ]);
@@ -29,6 +31,9 @@ import AppTheming from './components/commmon/app.theming';
 app.config(AppConfig.activate);
 app.config(AppRouter.activate);
 app.config(AppTheming.activate);
+app.config(function (RestangularProvider) {
+  RestangularProvider.setBaseUrl('/api/');
+});
 
 // ディレクティブ系
 import FocusMe from './directives/focusMe/focusMe';
@@ -44,7 +49,9 @@ app.directive('pageAnimation', PageAnimation.activate);
 
 // モデル系
 import UserModel from './services/models/user/user';
+import TeamModel from './services/models/team/team';
 app.factory('userModel', UserModel.activate);
+app.factory('teamModel', TeamModel.activate);
 
 // サービス系
 // Loopbackのgeneratorにより自動生成のため、クラス化されていない

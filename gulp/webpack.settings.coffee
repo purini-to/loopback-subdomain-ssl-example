@@ -47,5 +47,8 @@ module.exports = {
   plugins: [
     # bower.jsonにあるパッケージをrequire出来るように
     new BowerWebpackPlugin()
+    new webpack.ProvidePlugin({
+      _: "lodash"
+    })
   ]
 }

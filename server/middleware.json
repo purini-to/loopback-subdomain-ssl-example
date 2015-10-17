@@ -11,13 +11,6 @@
         "maxAge": 86400
       }
     },
-    "express-subdomain-handler": {
-      "params": {
-        "base": "${host}",
-        "prefix": "team",
-        "logger": true
-      }
-    },
     "morgan": {
       "params": {
         "format": "dev",

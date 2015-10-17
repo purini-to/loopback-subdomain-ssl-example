@@ -25,6 +25,8 @@
     "angular-aria": "~1.4.7",
     "angular-messages": "~1.4.7",
     "angular-validation-match": "~1.6.0",
-    "oclazyload": "~1.0.6"
+    "oclazyload": "~1.0.6",
+    "restangular": "~1.5.1",
+    "lodash": "~3.10.1"
   }
 }

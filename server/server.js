@@ -1,5 +1,6 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var config = require('./config.json');
 
 var http = require('http');
 var https = require('https');
@@ -7,6 +8,13 @@ var path = require('path');
 var fs = require('fs');
 
 var app = module.exports = loopback();
+
+// サブドメインの設定
+var reg = new RegExp('^(.*).' + config.host, 'g');
+app.get('/[^api][^\.]+$', function(req, res, next) {
+  req.subdomain = req.host.replace(reg, '$1');
+  next();
+});
 
 // boot scripts mount components like REST API
 boot(app, __dirname);
