@@ -15,14 +15,14 @@ export default class NewAccountController {
    * @param  {[type]} $state       ui-routerオブジェクト
    * @param  {[type]} $mdToast     トースト表示サービス
    * @param  {[type]} $document    htmlドキュメントサービス
-   * @param  {[type]} User         LoopbackのユーザーAPI
+   * @param  {[type]} userModel    ユーザーモデル
    * @param  {[type]} errorHandler エラーハンドラー作成オブジェクト
    */
-  constructor($state, $mdToast, $document, User, errorHandler) {
+  constructor($state, $mdToast, $document, userModel, errorHandler) {
     this.state = $state;
     this.mdToast = $mdToast;
     this.document = $document;
-    this.User = User;
+    this.userModel = userModel;
     this.account = {
       username: '',
       email: '',
@@ -65,9 +65,10 @@ export default class NewAccountController {
    * 失敗時はアカウント作成失敗処理を呼び出す
    */
   save() {
-    this.User.create(this.account).$promise.then((user) => {
+    this.userModel.create(this.account).then((user) => {
       this.showSaveSuccessToast();
       this.state.go('login');
+      return user;
     }).catch(this.saveFailedHandler);
   }
 }
@@ -80,6 +81,6 @@ NewAccountController.$inject = [
   '$state',
   '$mdToast',
   '$document',
-  'User',
+  'userModel',
   'errorHandler'
 ];

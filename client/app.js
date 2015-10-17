@@ -6,6 +6,7 @@ require('angular-aria');
 require('angular-material');
 require('angular-resource');
 require('angular-ui-router');
+require('ngstorage');
 require('angular-messages');
 require('angular-validation-match');
 require('restangular');
@@ -17,8 +18,8 @@ export var app = angular.module('app', [
   'ngResource',
   'ngMessages',
   'ngAria',
+  'ngStorage',
   'ngMaterial',
-  'lbServices',
   'restangular',
   'ui.router',
   'validation.match'
@@ -28,12 +29,11 @@ export var app = angular.module('app', [
 import AppConfig from './components/commmon/app.config';
 import AppRouter from './components/commmon/app.route';
 import AppTheming from './components/commmon/app.theming';
+import AppApi from './components/commmon/app.api';
 app.config(AppConfig.activate);
 app.config(AppRouter.activate);
 app.config(AppTheming.activate);
-app.config(function (RestangularProvider) {
-  RestangularProvider.setBaseUrl('/api/');
-});
+app.config(AppApi.activate);
 
 // ディレクティブ系
 import FocusMe from './directives/focusMe/focusMe';
@@ -54,8 +54,5 @@ app.factory('userModel', UserModel.activate);
 app.factory('teamModel', TeamModel.activate);
 
 // サービス系
-// Loopbackのgeneratorにより自動生成のため、クラス化されていない
-// 直接読み込みを行う
-require('./services/loopback/lb-services');
 import ErrorHandler from './services/handler/errorHandler';
 app.factory('errorHandler', ErrorHandler.activate);

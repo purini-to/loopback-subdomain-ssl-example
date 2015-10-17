@@ -3,6 +3,13 @@
 require('./login.styl');
 
 /**
+ * アクセストークンの最長時間(日)
+ * 90日
+ * @type {Integer}
+ */
+const NINETY_DAY = 60 * 60 * 24 * 90;
+
+/**
  * ログイン画面のコントローラー
  */
 export default class LoginController {
@@ -45,7 +52,9 @@ export default class LoginController {
    */
   login() {
     this.validate.faildedLogin = false;
-    this.user.login(this.account)
+    delete this.account.ttl;
+    if (this.remain) this.account.ttl = NINETY_DAY;
+    this.user.login(this.account, this.remain)
       .then((token) => {
         return this.user.findById();
       }).then((token) => {
