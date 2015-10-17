@@ -1,36 +1,28 @@
-var app = angular.module('app');
+'use strict';
 
-app.directive('uniqueness', function() {
-  return {
-    require: 'ngModel',
-    link: function(scope, elem, attrs, modelCtrl) {
-      var uniquenessValue = null;
-      modelCtrl.$parsers.push(function(viewValue) {
-        if (!attrs.uniqueness) return viewValue;
+import BaseValidate from './baseValidate';
 
-        var val = scope.$eval(attrs.uniqueness);
-        if (!val) return viewValue;
+/**
+ * Loopbackのユニークバリデーションクラス
+ */
+export default class Uniqueness extends BaseValidate {
+  /**
+   * uniqueness属性に指定された値が真の場合は、フォーマットエラーとする
+   * @param  {[type]} scope スコープ
+   * @param  {[type]} elem  エレメント
+   * @param  {[type]} attrs 属性
+   * @param  {[type]} ctrl  コントローラー
+   */
+  link(scope, elem, attrs, ctrl) {
+    super.link('uniqueness', scope, elem, attrs, ctrl);
+  }
 
-        if (uniquenessValue !== viewValue) {
-          modelCtrl.$setValidity('uniqueness', true);
-          var objKeys = attrs.uniqueness.split('.');
-          var i = 0;
-          objKeys.reduce(function (p, c) {
-            if (i === objKeys.length - 1) {
-              p[c] = false;
-            }
-            i++;
-            return p[c];
-          }, scope);
-          return viewValue;
-        }
-      });
-      scope.$watch(attrs.uniqueness, function(newValue) {
-        modelCtrl.$setValidity('uniqueness', !newValue);
-        if (newValue) {
-          uniquenessValue = modelCtrl.$modelValue;
-        }
-      });
-    }
-  };
-});
+  /**
+   * インスタンス生成を行う
+   * @return {Format}         一意設定ディレクティブのインスタンス
+   */
+  static activate() {
+    Uniqueness.instance = new Uniqueness();
+    return Uniqueness.instance;
+  }
+}

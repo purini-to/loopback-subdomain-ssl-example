@@ -1,36 +1,28 @@
-var app = angular.module('app');
+'use strict';
 
-app.directive('format', function() {
-  return {
-    require: 'ngModel',
-    link: function(scope, elem, attrs, modelCtrl) {
-      var formatValue = null;
-      modelCtrl.$parsers.push(function(viewValue) {
-        if (!attrs.format) return viewValue;
+import BaseValidate from './baseValidate';
 
-        var val = scope.$eval(attrs.format);
-        if (!val) return viewValue;
+/**
+ * Loopbackのフォーマットバリデーションクラス
+ */
+export default class Format extends BaseValidate {
+  /**
+   * format属性に指定された値が真の場合は、フォーマットエラーとする
+   * @param  {[type]} scope スコープ
+   * @param  {[type]} elem  エレメント
+   * @param  {[type]} attrs 属性
+   * @param  {[type]} ctrl  コントローラー
+   */
+  link(scope, elem, attrs, ctrl) {
+    super.link('format', scope, elem, attrs, ctrl);
+  }
 
-        if (formatValue !== viewValue) {
-          modelCtrl.$setValidity('format', true);
-          var objKeys = attrs.format.split('.');
-          var i = 0;
-          objKeys.reduce(function (p, c) {
-            if (i === objKeys.length - 1) {
-              p[c] = false;
-            }
-            i++;
-            return p[c];
-          }, scope);
-          return viewValue;
-        }
-      });
-      scope.$watch(attrs.format, function(newValue) {
-        modelCtrl.$setValidity('format', !newValue);
-        if (newValue) {
-          formatValue = modelCtrl.$modelValue;
-        }
-      });
-    }
-  };
-});
+  /**
+   * インスタンス生成を行う
+   * @return {Format}         フォーマット設定ディレクティブのインスタンス
+   */
+  static activate() {
+    Format.instance = new Format();
+    return Format.instance;
+  }
+}

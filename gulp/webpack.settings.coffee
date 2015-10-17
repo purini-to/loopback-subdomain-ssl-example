@@ -33,7 +33,7 @@ module.exports = {
   # 他にもフォントやSVGを読み込む
   module:
     loaders: [
-      { test: /\.js$/, loader: "ng-annotate!babel" }
+      { test: /\.js$/, loader: "ng-annotate!babel?experimental&optional=selfContained" }
       { test: /\.css$/, loader: "style!css!autoprefixer-loader?browsers=last 2 version" }
       { test: /\.styl$/, loader: "style!css!autoprefixer-loader?browsers=last 2 version!stylus" }
       { test: /\.jade$/, loader: "jade" }

@@ -1,16 +1,51 @@
-var app = angular.module('app');
+'use strict';
 
-app.directive('focusMe', function($timeout) {
-  return {
-    restrict: 'A',
-    link: function(scope, element, attrs) {
-      scope.$watch('focusMe', function(value) {
-        if (attrs.focusMe === 'true') {
-          $timeout(function() {
-            element[0].focus();
-          });
-        }
-      });
-    }
-  };
-});
+/**
+ * タイムアウト管理設定
+ */
+const TIMEOUT = new WeakMap();
+
+/**
+ * フォーカスを設定するディレクティブ
+ */
+export default class FocusMe {
+  /**
+   * 属性指定のみ有効
+   * フォーカス設定関数を作成
+   * @param  {[type]} $timeout タイムアウト管理設定
+   */
+  constructor($timeout) {
+    this.restrict = 'A';
+    TIMEOUT.set(this, function(element) {
+      $timeout(() => element.focus());
+    });
+  }
+
+  /**
+   * 属性の値を監視し、真の場合はフォーカスを設定する
+   * @param  {[type]} scope   スコープ
+   * @param  {[type]} element エレメント
+   * @param  {[type]} attrs   属性
+   */
+  link(scope, element, attrs) {
+    scope.$watch('focusMe', (value) => {
+      if (attrs.focusMe === 'true') TIMEOUT.get(FocusMe.instance)(element[0]);
+    });
+  }
+
+  /**
+   * インスタンス生成を行う
+   * @param  {[type]} $timeout タイムアウト管理設定
+   * @return {FocusMe}         フォーカス設定ディレクティブのインスタンス
+   */
+  static activate($timeout) {
+    FocusMe.instance = new FocusMe($timeout);
+    return FocusMe.instance;
+  }
+}
+
+/**
+ * DI対象の名前を登録する
+ * @type {Array}
+ */
+FocusMe.activate.$inject = ['$timeout'];
