@@ -1,9 +1,11 @@
-.view[view-name="login"].ng-enter,
-.view[view-name="newAccount"].ng-enter
+[page-animation="login"].ng-enter,
+[page-animation="newAccount"].ng-enter
+ overflow hidden
  animation scaleUp 0.5s both ease-in
 
-.view[view-name="login"].ng-leave,
-.view[view-name="newAccount"].ng-leave
+[page-animation="login"].ng-leave,
+[page-animation="newAccount"].ng-leave
+ overflow hidden
  transform-origin 0% 0%
  animation rotateFall 1s both ease-in
  z-index 1

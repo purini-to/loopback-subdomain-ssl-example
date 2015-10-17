@@ -35,10 +35,16 @@ import FocusMe from './directives/focusMe/focusMe';
 import AppValidators from './directives/validators/appValidators';
 import Format from './directives/validators/format';
 import Uniqueness from './directives/validators/uniqueness';
+import PageAnimation from './directives/animations/pageAnimation';
 app.directive('focusMe', FocusMe.activate);
 app.directive('appValidators', AppValidators.activate);
 app.directive('format', Format.activate);
 app.directive('uniqueness', Uniqueness.activate);
+app.directive('pageAnimation', PageAnimation.activate);
+
+// モデル系
+import UserModel from './services/models/user/user';
+app.factory('userModel', UserModel.activate);
 
 // サービス系
 // Loopbackのgeneratorにより自動生成のため、クラス化されていない

@@ -10,11 +10,13 @@ export default class LoginController {
    * モデルの初期値登録とログイン失敗時のハンドラーを作成
    * @param  {[type]} $state       ui-routerオブジェクト
    * @param  {[type]} User         LoopbackのユーザーAPI
+   * @param  {[type]} UserModel    ユーザー情報モデル
    * @param  {[type]} errorHandler エラーハンドラー作成オブジェクト
    */
-  constructor($state, User, errorHandler) {
+  constructor($state, User, UserModel, errorHandler) {
     this.state = $state;
     this.User = User;
+    this.user = UserModel;
     this.errorHandler = errorHandler;
     this.account = {
       email: '',
@@ -44,7 +46,7 @@ export default class LoginController {
    */
   login() {
     this.validate.faildedLogin = false;
-    this.User.login(this.account).$promise.then(this.tranDashboard)
+    this.User.login(this.account).$promise.then(this.tranDashboard.bind(this))
       .catch(this.loginFailedHandler);
   }
 
@@ -53,6 +55,7 @@ export default class LoginController {
    * @param  {[type]} result ログイン成功オブジェクト
    */
   tranDashboard(result) {
+    this.user = result.user;
     console.log(result);
   }
 
@@ -71,5 +74,6 @@ export default class LoginController {
 LoginController.$inject = [
   '$state',
   'User',
+  'userModel',
   'errorHandler'
 ];
