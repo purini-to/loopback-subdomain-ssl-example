@@ -9,15 +9,9 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "projects": {
-      "type": "hasMany",
-      "model": "project",
-      "foreignKey": "ownerId"
-    },
     "teams": {
-      "type": "hasMany",
-      "model": "team",
-      "foreignKey": "ownerId"
+      "type": "hasAndBelongsToMany",
+      "model": "team"
     }
   },
   "acls": [

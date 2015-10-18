@@ -17,7 +17,7 @@ export default class FocusMe {
   constructor($timeout) {
     this.restrict = 'A';
     TIMEOUT.set(this, function(element) {
-      $timeout(() => element.focus());
+      $timeout(() => element.focus(), 700);
     });
   }
 

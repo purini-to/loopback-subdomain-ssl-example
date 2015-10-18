@@ -38,10 +38,10 @@
   },
   "team": {
     "dataSource": "db",
-    "public": false
-  },
-  "project": {
-    "dataSource": "db",
     "public": true
+  },
+  "chanel": {
+    "dataSource": "db",
+    "public": false
   }
 }

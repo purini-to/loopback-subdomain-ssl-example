@@ -1,0 +1,21 @@
+.add-team-container.md-layout.layout-fill.layout-align-center-center.bg-team.flex(md-theme="team")
+  .md-layout-column.layout-align-center-center
+    md-toolbar.md-hue-2
+      .md-toolbar-tools.md-layout(layout-align="center")
+        h2.md-flex チーム名を入力してください
+    md-content.md-padding.bg-view.flex-sm.md-layout.layout-align-center
+      md-card.flex
+        md-card-content.md-layout-column.flex
+          form.md-layout-colmun.layout-margin(ng-submit="teamForm.$invalid ? null : vm.addTeam()", name="teamForm", novalidate="")
+            .md-layout-sm-column.md-layout
+              md-input-container.has-messages
+                label チーム名
+                input(ng-model="vm.team.name", type="text", name="name", required="", maxlength="15", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/", x-uniqueness="vm.validate.name.uniqueness", focus-me="{{!teamForm.$submited}}")
+                div(ng-messages="teamForm.name.$error")
+                  div(ng-message="required") 必須入力です
+                  div(ng-message="maxlength") 15文字以内で入力してください
+                  div(ng-message="pattern") 半角のみ有効です
+                  div(ng-message="uniqueness") 既に登録済みのチーム名です
+              md-input-container.hide-sm
+                input(type="text", value=".loopback.example.com", aria-label="global-domain", disabled)
+              md-button.md-raised.md-accent(type="submit", ng-disabled="teamForm.$invalid") 登録

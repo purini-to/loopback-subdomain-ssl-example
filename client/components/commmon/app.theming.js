@@ -15,6 +15,18 @@ const DEFAULT = {
   },
 };
 
+const TEAM = {
+  PRIMARY: {
+    COLOR: 'indigo',
+  },
+  ACCENT: {
+    COLOR: 'pink',
+  },
+  WARN: {
+    COLOR: 'red',
+  },
+};
+
 /**
  * アプリケーションのマテリアルデザインテーマ設定を行う
  */
@@ -28,6 +40,11 @@ export default class AppTheming {
       .primaryPalette(DEFAULT.PRIMARY.COLOR)
       .accentPalette(DEFAULT.ACCENT.COLOR, DEFAULT.ACCENT.HUES)
       .warnPalette(DEFAULT.WARN.COLOR);
+
+    $mdThemingProvider.theme('team')
+      .primaryPalette(TEAM.PRIMARY.COLOR)
+      .accentPalette(TEAM.ACCENT.COLOR)
+      .warnPalette(TEAM.WARN.COLOR);
   }
 
   /**

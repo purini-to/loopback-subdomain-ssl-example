@@ -1,4 +1,4 @@
-div.login-container.md-layout-column.md-layout-sm-fill.ng-cloak
+div.login-container.md-layout-column.md-layout-sm-fill.bg-account.ng-cloak
   md-toolbar.md-hue-2
     .md-toolbar-tools.md-layout(layout-align="center")
       h2.md-flex Mutter
@@ -15,7 +15,7 @@ div.login-container.md-layout-column.md-layout-sm-fill.ng-cloak
               div(ng-message="maxlength") 30文字以内で入力してください
               div(ng-message="minlength") 3文字以上で入力してください
               div(ng-message="pattern") 半角のみ有効です
-              div(ng-message="uniqueness") 既に登録されているユーザー名です
+              div(ng-message="uniqueness") 既に登録済みのユーザー名です
           md-input-container.has-messages
             label メールアドレス
             input(ng-model="vm.account.email", type="email", name="email", required="", maxlength="30", x-uniqueness="vm.validate.email.uniqueness", x-format="vm.validate.email.format")
@@ -24,7 +24,7 @@ div.login-container.md-layout-column.md-layout-sm-fill.ng-cloak
               div(ng-message="maxlength") 30文字以内で入力してください
               div(ng-message="email") 正しいメールアドレスを入力してください
               div(ng-message="format") 正しいメールアドレスを入力してください
-              div(ng-message="uniqueness") 既に登録されているメールアドレスです
+              div(ng-message="uniqueness") 既に登録済みのメールアドレスです
           md-input-container.has-messages
             label パスワード
             input(ng-model="vm.account.password", type="password", name="password", required="", minlength="5", maxlength="20", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/")

@@ -1,16 +1,30 @@
-[page-animation="login"].ng-enter,
-[page-animation="newAccount"].ng-enter
- overflow hidden
- animation scaleUp 0.5s both ease-in
+// [page-animation="login"].ng-enter,
+// [page-animation="newAccount"].ng-enter,
+// [page-animation="dashboard"].ng-enter,
+// [page-animation="addTeam"].ng-enter
+//  overflow hidden
+//  animation scaleUp 0.7s both ease-in
+//  z-index 0
+//
+// [page-animation="login"].ng-leave,
+// [page-animation="newAccount"].ng-leave,
+// [page-animation="addTeam"].ng-leave
+//  overflow hidden
+//  transform-origin 0% 0%
+//  animation rotateFall 1s both ease-in
+//  z-index 1
 
-[page-animation="login"].ng-leave,
-[page-animation="newAccount"].ng-leave
- overflow hidden
- transform-origin 0% 0%
- animation rotateFall 1s both ease-in
- z-index 1
-// .view.ng-enter        { animation:slideInRight 0.5s both ease-in; }
-// .view.ng-leave        { animation:slideOutLeft 0.5s both ease-in; }
+.view.ng-enter
+  overflow hidden
+  z-index 0
+  animation:slideInRight 0.5s both ease-in
+
+.view.ng-leave
+  overflow hidden
+  transform-origin 0% 0%
+  z-index 1
+  animation:slideOutLeft 0.5s both ease-in
+
 // .view.ng-leave      { transform-origin: 50% 50%; animation: rotateOutNewspaper .5s both ease-in; }
 // .view.ng-enter      { animation:slideInUp 0.5s both ease-in; }
 

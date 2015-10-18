@@ -79,7 +79,7 @@ export default class UserModel {
    * @return {Promise}    ユーザー情報取得プロミス
    */
   findById(id) {
-    let _id = id || this.user.id || this.token.userId;
+    let _id = id || this.token.userId || this.user.id;
     var self = this;
     return API.get(UserModel.instance).one(PREFIX, _id).get()
       .then((user) => {
@@ -96,13 +96,24 @@ export default class UserModel {
    * @return {Promise}    ユーザーが所持するチーム情報取得プロミス
    */
   findTeams(id) {
-    let _id = id || this.user.id || this.token.userId;
+    let _id = id || this.token.userId || this.user.id;
     var self = this;
     return API.get(UserModel.instance).one(PREFIX, _id).one('teams')
       .getList().then((teams) => {
         if (!id) self.teams = teams;
         return teams;
       });
+  }
+
+  /**
+   * チームを追加する
+   * @param {Object} team チーム情報
+   */
+  addTeam(team) {
+    return this.user.post('teams', team).then((team) => {
+      this.teams.push(team);
+      return team;
+    });
   }
 
   /**

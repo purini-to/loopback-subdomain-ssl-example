@@ -1,27 +1,21 @@
-div.login-container.md-layout-column.md-layout-sm-fill.ng-cloak(ng-cloak="")
-  md-toolbar.md-hue-2
-    .md-toolbar-tools.md-layout(layout-align="center")
-      h2.md-flex Mutter
-  md-content.md-padding.bg-view.flex-sm.md-layout.layout-align-center
-    md-card.flex
-      md-card-content.md-layout-column.flex
-        form.md-layout-colmun.layout-margin(ng-submit="loginForm.$invalid ? null : vm.login()", name="loginForm", novalidate="")
-          h2.md-title.md-layout(layout-align="center")
-            i.material-icons.medium.circle(style="color: #aaa; background-color: #eee") person
-          div.alert
-            span.message(ng-show="vm.validate.faildedLogin") メールアドレスとパスワードが一致しません
-          md-input-container
-            label メールアドレス
-            input(ng-model="vm.account.email", type="text", name="id", required="", maxlength="30",  focus-me="{{!loginForm.$submited}}")
-          md-input-container
-            label パスワード
-            input(ng-model="vm.account.password", type="password", name="password", required="", maxlength="20")
-          .md-actions.md-layout.md-layout-sm-column
-            md-input-container(style="padding-bottom: 0")
-              md-checkbox(ng-model="vm.remain") ログイン状態を維持する
-            span.flex
-            md-button.md-raised.md-accent(type="submit", ng-disabled="loginForm.$invalid") ログイン
-        span.flex
-        md-divider
-        .md-layout-column
-          md-button.btn-account-new.flex.md-accent.md-hue-2(type="button", ng-click="vm.tranNewAcount()") アカウントを作成する
+.dashboard-container.md-layout.bg-team
+  .grid-team.flex
+    md-grid-list(md-cols-gt-md="4", md-cols-md="2", md-cols-sm="1",
+      md-row-height-gt-md="3.2:2", md-row-height="4:2", md-gutter="8px", md-gutter-gt-sm="4px")
+      md-grid-tile(ng-repeat="team in vm.user.teams", ng-click="vm.tranTeamHome($index)",
+        class="{{vm.colors[$index % vm.colors.length]}}",
+        ng-mouseenter="hover=true"
+        ng-mouseleave="hover=false"
+        ng-class="{shake: hover}")
+        md-button
+          i.material-icons group
+          md-grid-tile-footer
+            h3 {{ team.name }}
+      md-grid-tile.teal(ng-click="vm.tranAddTeam()", ng-animate-ref="addTeam", 
+        ng-mouseenter="vm.hover=true"
+        ng-mouseleave="vm.hover=false"
+        ng-class="{shake: vm.hover}")
+        md-button
+          i.material-icons group_add
+          md-grid-tile-footer
+            h3 新しいチームを追加

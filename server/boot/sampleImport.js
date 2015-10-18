@@ -21,48 +21,56 @@ module.exports = function(app) {
 
     console.log('Created users:', users);
 
+    users[0].teams.create({
+      name: 'biz4',
+      description: 'team1',
+    }, function (err, team) {
+      if (err) throw err;
+      console.log('Created team:', team);
+    });
+
     // create project 1 and make john the owner
-    users[0].projects.create({
-      name: 'project1',
-      balance: 100
-    }, function(err, project) {
-      if (err) throw err;
-
-      console.log('Created project:', project);
-
-      // add team members
-      Team.create([{
-        ownerId: project.ownerId,
-        memberId: users[0].id
-      }, {
-        ownerId: project.ownerId,
-        memberId: users[1].id
-      }], function(err, team) {
-        if (err) throw err;
-
-        console.log('Created team:', team);
-      });
-    });
-
-    //create project 2 and make jane the owner
-    users[1].projects.create({
-      name: 'project2',
-      balance: 100
-    }, function(err, project) {
-      if (err) throw err;
-
-      console.log('Created project:', project);
-
-      //add team members
-      Team.create({
-        ownerId: project.ownerId,
-        memberId: users[1].id
-      }, function(err, team) {
-        if (err) throw err;
-
-        console.log('Created team:', team);
-      });
-    });
+    // users[0].projects.create({
+    //   name: 'project1',
+    //   balance: 100
+    // }, function(err, project) {
+    //   if (err) throw err;
+    //
+    //   console.log('Created project:', project);
+    //
+    //   // add team members
+    //   Team.create([{
+    //     ownerId: project.ownerId,
+    //     memberId: users[0].id
+    //   }, {
+    //     ownerId: project.ownerId,
+    //     memberId: users[1].id
+    //   }], function(err, team) {
+    //     if (err) throw err;
+    //
+    //     console.log('Created team:', team);
+    //   });
+    // });
+    //
+    // //create project 2 and make jane the owner
+    // users[1].projects.create({
+    //   name: 'project2',
+    //   balance: 100
+    // }, function(err, project) {
+    //   if (err) throw err;
+    //
+    //   console.log('Created project:', project);
+    //
+    //   //add team members
+    //   Team.create({
+    //     ownerId: project.ownerId,
+    //     memberId: users[1].id
+    //   }, function(err, team) {
+    //     if (err) throw err;
+    //
+    //     console.log('Created team:', team);
+    //   });
+    // });
 
     //create the admin role
     Role.create({

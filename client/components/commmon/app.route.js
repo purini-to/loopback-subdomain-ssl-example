@@ -2,6 +2,8 @@
 
 import LoginCtrl from '../login/login.controller';
 import NewAccountCtrl from '../newAccount/newAccount.controller';
+import DashboardCtrl from '../dashboard/dashboard.controller';
+import AddTeamController from '../addTeam/addTeam.controller';
 
 /**
  * アプリケーション共通のルーティング設定を行う
@@ -24,6 +26,16 @@ export default class AppRouter {
       url: '/user/account/new',
       templateUrl: '/components/newAccount/newAccount.html',
       controller: NewAccountCtrl,
+      controllerAs: 'vm',
+    }).state('dashboard', {
+      url: '/dashboard',
+      templateUrl: '/components/dashboard/dashboard.html',
+      controller: DashboardCtrl,
+      controllerAs: 'vm',
+    }).state('addTeam', {
+      url: '/user/addTeam',
+      templateUrl: '/components/addTeam/addTeam.html',
+      controller: AddTeamController,
       controllerAs: 'vm',
     });
   }

@@ -59,16 +59,26 @@ export default class LoginController {
         return this.user.findById();
       }).then((token) => {
         return this.user.findTeams();
-      }).then(this.tranDashboard.bind(this))
+      }).then((result) => {
+        if (this.user.teams && this.user.teams.length > 0) this.tranDashboard();
+        else this.tranAddTeam();
+        return result;
+      })
       .catch(this.loginFailedHandler);
   }
 
   /**
-   * ダッシュボード画面へ遷移する
-   * @param  {[type]} result ログイン成功オブジェクト
+   * チーム追加画面へ遷移する
    */
-  tranDashboard(result) {
-    this.state.go('newAccount');
+  tranAddTeam() {
+    this.state.go('addTeam');
+  }
+
+  /**
+   * ダッシュボード画面へ遷移する
+   */
+  tranDashboard() {
+    this.state.go('dashboard');
   }
 
   /**

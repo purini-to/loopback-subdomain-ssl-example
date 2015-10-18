@@ -9,7 +9,7 @@ module.exports = function(app) {
     }
 
     // if the target model is not project
-    if (context.modelName !== 'project') {
+    if (context.modelName !== 'team') {
       return reject();
     }
 
@@ -19,22 +19,15 @@ module.exports = function(app) {
       return reject();
     }
 
-    // check if userId is in team table for the given project id
-    context.model.findById(context.modelId, function(err, project) {
-      if (err || !project)
-        return reject();
+    context.model.findById(context.modelId, function(err, team) {
+      if (err || !team) return reject();
 
-      var Team = app.models.Team;
-      Team.count({
-        ownerId: project.ownerId,
-        memberId: userId
-      }, function(err, count) {
+      team.users.findById(userId, function(err, user) {
         if (err) {
-          console.log(err);
+          console.error(err);
           return cb(null, false);
         }
-
-        cb(null, count > 0); // true = is a team member
+        cb(null, user); // true = is a team member
       });
     });
   });
