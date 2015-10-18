@@ -28,12 +28,12 @@ export default class AppRouter {
       controller: NewAccountCtrl,
       controllerAs: 'vm',
     }).state('dashboard', {
-      url: '/dashboard',
+      url: '/team/dashboard',
       templateUrl: '/components/dashboard/dashboard.html',
       controller: DashboardCtrl,
       controllerAs: 'vm',
     }).state('addTeam', {
-      url: '/user/addTeam',
+      url: '/team/addTeam',
       templateUrl: '/components/addTeam/addTeam.html',
       controller: AddTeamController,
       controllerAs: 'vm',
