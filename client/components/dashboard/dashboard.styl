@@ -4,7 +4,7 @@
   bottom 0
   right 0
   left 0
-  overflow-y auto
+  overflow-y hidden
   overflow-x hidden
   .grid-team
     min-width 100%
@@ -56,8 +56,7 @@
     cursor pointer
     transition: all 400ms ease-out 50ms
     &.shake
-      animation shake 0.7s both ease-in
-      transform-origin 0 40%
+      animation pulse 0.7s both ease-in
     button
       width 100%
       height 100%
@@ -70,14 +69,3 @@
       margin-top: -30px;
       color: rgba(255,255,255,.7);
       background-color: transparent;
-
-@keyframes shake
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(-6deg); }
-  20% { transform: rotate(7deg); }
-  35% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-  65% { transform: rotate(-1deg); }
-  80% { transform: rotate(1deg); }
-  95% { transform: rotate(0deg); }
-  100% { transform: rotate(0deg); }

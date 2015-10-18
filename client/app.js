@@ -41,11 +41,13 @@ import AppValidators from './directives/validators/appValidators';
 import Format from './directives/validators/format';
 import Uniqueness from './directives/validators/uniqueness';
 import PageAnimation from './directives/animations/pageAnimation';
+import Scrollbar from './directives/scroll/scrollbar';
 app.directive('focusMe', FocusMe.activate);
 app.directive('appValidators', AppValidators.activate);
 app.directive('format', Format.activate);
 app.directive('uniqueness', Uniqueness.activate);
 app.directive('pageAnimation', PageAnimation.activate);
+app.directive('scrollbar', Scrollbar.activate);
 
 // モデル系
 import UserModel from './services/models/user/user';

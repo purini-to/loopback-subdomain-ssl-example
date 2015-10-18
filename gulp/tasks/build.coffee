@@ -84,6 +84,10 @@ gulp.task "build:jade", ->
   .pipe $.jade()
   .pipe gulp.dest settings.html.dist
 
-gulp.task "build", ["build:webpack-dev-server", "build:jade"]
+gulp.task "build:other", ->
+  gulp.src "#{settings.src}/bower_components/perfect-scrollbar/js/min/perfect-scrollbar.min.js"
+  .pipe gulp.dest settings.js.dist
 
-gulp.task "build:minify", ["build:webpack:minify", "build:jade"]
+gulp.task "build", ["build:webpack-dev-server", "build:jade", "build:other"]
+
+gulp.task "build:minify", ["build:webpack:minify", "build:jade", "build:other"]

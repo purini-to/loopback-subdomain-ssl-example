@@ -28,6 +28,7 @@
     "oclazyload": "~1.0.6",
     "restangular": "~1.5.1",
     "lodash": "~3.10.1",
-    "ngstorage": "~0.3.9"
+    "ngstorage": "~0.3.9",
+    "perfect-scrollbar": "~0.6.7"
   }
 }
