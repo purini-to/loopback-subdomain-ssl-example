@@ -12,7 +12,7 @@ export default class Scrollbar {
 
   link(scope, element, attrs) {
     Ps.initialize(element[0], {
-      wheelSpeed: 2,
+      wheelSpeed: 0.8,
       wheelPropagation: true,
       minScrollbarLength: 20
     });
