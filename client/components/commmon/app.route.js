@@ -32,11 +32,13 @@ export default class AppRouter {
       templateUrl: '/components/dashboard/dashboard.html',
       controller: DashboardCtrl,
       controllerAs: 'vm',
+      auth: true,
     }).state('addTeam', {
       url: '/team/addTeam',
       templateUrl: '/components/addTeam/addTeam.html',
       controller: AddTeamController,
       controllerAs: 'vm',
+      auth: true,
     });
   }
 

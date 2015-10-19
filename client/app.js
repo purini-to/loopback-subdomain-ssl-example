@@ -30,10 +30,12 @@ import AppConfig from './components/commmon/app.config';
 import AppRouter from './components/commmon/app.route';
 import AppTheming from './components/commmon/app.theming';
 import AppApi from './components/commmon/app.api';
+import AppRun from './components/commmon/app.run';
 app.config(AppConfig.activate);
 app.config(AppRouter.activate);
 app.config(AppTheming.activate);
 app.config(AppApi.activate);
+app.run(AppRun.activate);
 
 // ディレクティブ系
 import FocusMe from './directives/focusMe/focusMe';

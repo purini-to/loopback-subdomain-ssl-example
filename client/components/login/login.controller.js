@@ -16,7 +16,6 @@ export default class LoginController {
   /**
    * モデルの初期値登録とログイン失敗時のハンドラーを作成
    * @param  {[type]} $state       ui-routerオブジェクト
-   * @param  {[type]} User         LoopbackのユーザーAPI
    * @param  {[type]} UserModel    ユーザー情報モデル
    * @param  {[type]} errorHandler エラーハンドラー作成オブジェクト
    */

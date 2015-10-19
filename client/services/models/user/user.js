@@ -37,6 +37,14 @@ export default class UserModel {
   }
 
   /**
+   * ログイン状態か判定します
+   * @return {Boolean} true:ログイン状態 | false:未ログイン状態
+   */
+  isLogged() {
+    return this.token.id && this.user.id;
+  }
+
+  /**
    * ログイン処理
    * @param  {Object]} account アカウント情報
    * @param  {[type]} saved   [description]
