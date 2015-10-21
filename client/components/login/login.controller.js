@@ -58,7 +58,7 @@ export default class LoginController {
         return this.user.findById();
       }).then((token) => {
         return this.user.findTeams();
-      }).then((result) => {
+      }).then(this.user.saveStorageToken(this.remain)).then((result) => {
         if (this.user.teams && this.user.teams.length > 0) this.tranDashboard();
         else this.tranAddTeam();
         return result;

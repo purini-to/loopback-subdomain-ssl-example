@@ -13,14 +13,6 @@
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "db",
-    "public": false
-  },
-  "AccessToken": {
-    "dataSource": "db",
-    "public": false
-  },
   "ACL": {
     "dataSource": "db",
     "public": false
@@ -43,5 +35,9 @@
   "chanel": {
     "dataSource": "db",
     "public": false
+  },
+  "accessToken": {
+    "dataSource": "db",
+    "public": true
   }
 }

@@ -12,21 +12,38 @@ export default class AppRun {
    * @param  {[type]} errorHandler エラーハンドラー作成オブジェクト
    */
   constructor($rootScope, $state, userModel, errorHandler) {
-    $rootScope.$on('$stateChangeStart', (e, toState, toParams, fromState, fromParams) => {
+    $rootScope.$on('$stateChangeStart', (e, toState, toParams,
+      fromState, fromParams) => {
       // authプロパティが存在しなければチェックせずに終了
       if (!toState.auth) return;
       // ログインしていなければ
       if (!userModel.isLogged()) {
+        var info = userModel.getStorageToken();
         //遷移を止める
         e.preventDefault();
-        $state.go('login');
+        // クッキーにアクセストークンがなければログインページに遷移
+        if (!info || !info.token) return $state.go('login');
+        // クッキーにアクセストークンがある場合はユーザー情報を取得する
+        userModel.findAccessToken(info.token).then((token) => {
+          return userModel.findById();
+        }).then((result) => {
+          console.log(userModel);
+          console.log(toState);
+          $state.go(toState.name);
+        }).catch((err) => {
+          $state.go('login');
+        });
       }
     });
   }
   /**
    * インスタンス生成を行う
-   * @param  {[type]} $timeout タイムアウト管理設定
-   * @return {FocusMe}         フォーカス設定ディレクティブのインスタンス
+   * @param  {[type]} $rootScope   最上位のスコープ
+   * @param  {[type]} $state       ui-routerオブジェクト
+   * @param  {[type]} $localStorage   ローカルストレージサービス
+   * @param  {[type]} $sessionStorage セッションストレージサービス
+   * @param  {[type]} UserModel    ユーザー情報モデル
+   * @param  {[type]} errorHandler エラーハンドラー作成オブジェクト
    */
   static activate($rootScope, $state, userModel, errorHandler) {
     AppRun.instance = new AppRun($rootScope, $state, userModel, errorHandler);

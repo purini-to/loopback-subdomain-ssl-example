@@ -2,11 +2,13 @@
 
 // APIのルートURL
 const PREFIX = 'users';
+const PREFIX_TOKEN = 'accessTokens';
+// クッキーに保存するキー
+const COOKIE_KEY_ACCESS_INFO = 'access_info';
 
 // 各種サービスのキャッシュ
 const API = new WeakMap();
-const L_STORAGE = new WeakMap();
-const S_STORAGE = new WeakMap();
+const COOKIE = new WeakMap();
 
 /**
  * ユーザー情報モデル
@@ -14,17 +16,15 @@ const S_STORAGE = new WeakMap();
 export default class UserModel {
   /**
    * ユーザー情報の初期値を登録する
-   * @param  {[type]} Restangular REST APIサービス
-   * @param  {[type]} $localStorage   ローカルストレージサービス
-   * @param  {[type]} $sessionStorage セッションストレージサービス
+   * @param  {[User]} Restangular REST APIサービス
+   * @param  {[type]} ipCookie   クッキーサービス
    */
-  constructor(Restangular, $localStorage, $sessionStorage) {
+  constructor(Restangular, ipCookie) {
     this.user = {};
     this.token = {};
     this.teams = {};
     API.set(this, Restangular);
-    L_STORAGE.set(this, $localStorage);
-    S_STORAGE.set(this, $sessionStorage);
+    COOKIE.set(this, ipCookie);
   }
 
   /**
@@ -34,6 +34,21 @@ export default class UserModel {
    */
   create(user) {
     return API.get(UserModel.instance).one(PREFIX).post(null, user);
+  }
+
+  /**
+   * アクセストークンをAPIのデフォルトパラメータとして設定する
+   * @param {String} token アクセストークン
+   */
+  setDefaultRequestParamsByToken(token) {
+    let _token = token || this.token.id;
+    var instance = UserModel.instance;
+    var rest = API.get(instance);
+    API.set(instance, rest.withConfig((RestangularConfigurer) => {
+      RestangularConfigurer.setDefaultRequestParams({
+        access_token: _token
+      });
+    }));
   }
 
   /**
@@ -58,12 +73,7 @@ export default class UserModel {
       .post(null, account)
       .then((token) => {
         self.token = token;
-        self.saveStorageToken(token.id, saved);
-        API.set(instance, rest.withConfig((RestangularConfigurer) => {
-          RestangularConfigurer.setDefaultRequestParams({
-            access_token: token.id
-          });
-        }));
+        self.setDefaultRequestParamsByToken(token.id);
         return token;
       });
   }
@@ -73,10 +83,32 @@ export default class UserModel {
    * @param  {String}  token     アクセストークン
    * @param  {Boolean} saved = false セッションストレージ | ローカルストレージ
    */
-  saveStorageToken(token, saved = false) {
-    let instance = UserModel.instance;
-    var storage = (saved) ? L_STORAGE : S_STORAGE;
-    storage.get(instance).accessToken = token;
+  saveStorageToken(saved = false) {
+    return () => {
+      var instance = UserModel.instance;
+      var options = {
+        secure: true,
+        domain: '.loopback.example.com',
+        path: '/',
+      };
+      var cookie = COOKIE.get(instance);
+      cookie.remove(COOKIE_KEY_ACCESS_INFO);
+      if (saved) {
+        options.expires = instance.token.ttl;
+      }
+      cookie(COOKIE_KEY_ACCESS_INFO, {
+        token: instance.token.id
+      }, options);
+      return instance;
+    };
+  }
+
+  /**
+   * ストレージに保存したアクセストークンを取得します
+   * @return {String} アクセストークン
+   */
+  getStorageToken() {
+    return COOKIE.get(UserModel.instance)(COOKIE_KEY_ACCESS_INFO);
   }
 
   /**
@@ -93,6 +125,22 @@ export default class UserModel {
       .then((user) => {
         if (!id) self.user = user;
         return user;
+      });
+  }
+
+  /**
+   * アクセストークンからユーザー情報を取得します
+   * @param  {[type]} token [description]
+   * @return {[type]}       [description]
+   */
+  findAccessToken(token) {
+    let _token = token || this.token.id;
+    var self = this;
+    return API.get(UserModel.instance).one(PREFIX_TOKEN, _token).get()
+      .then((accessToken) => {
+        self.token = accessToken;
+        self.setDefaultRequestParamsByToken(accessToken.id);
+        return accessToken;
       });
   }
 
@@ -126,14 +174,12 @@ export default class UserModel {
 
   /**
    * インスタンス生成を行う
-   * @param  {[User]} User ユーザー情報操作サービス
-   * @param  {[type]} $localStorage   ローカルストレージサービス
-   * @param  {[type]} $sessionStorage セッションストレージサービス
+   * @param  {[User]} Restangular REST APIサービス
+   * @param  {[type]} ipCookie   クッキーサービス
    * @return {UserModel}       ユーザー情報モデルのインスタンス
    */
-  static activate(Restangular, $localStorage, $sessionStorage) {
-    UserModel.instance = new UserModel(Restangular,
-      $localStorage, $sessionStorage);
+  static activate(Restangular, ipCookie) {
+    UserModel.instance = new UserModel(Restangular, ipCookie);
     return UserModel.instance;
   }
 }
@@ -144,6 +190,5 @@ export default class UserModel {
  */
 UserModel.activate.$inject = [
   'Restangular',
-  '$localStorage',
-  '$sessionStorage'
+  'ipCookie',
 ];

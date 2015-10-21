@@ -6,8 +6,8 @@ var requireDir = require('require-dir');
  * @param  {object} importObj 探索対象
  * @param  {object} app       loopbackアプリケーション
  */
-var deepImport = function (importObj, app) {
-  Object.keys(importObj).forEach(function (key) {
+var deepImport = function(importObj, app) {
+  Object.keys(importObj).forEach(function(key) {
     if (typeof importObj[key] !== 'function') {
       deepImport(importObj[key], app);
     } else {
@@ -16,7 +16,9 @@ var deepImport = function (importObj, app) {
   });
 };
 
-module.exports = function (app) {
-  var imports = requireDir('./role', {recurse: true});
+module.exports = function(app) {
+  var imports = requireDir('./role', {
+    recurse: true
+  });
   deepImport(imports, app);
 };

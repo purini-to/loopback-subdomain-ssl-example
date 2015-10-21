@@ -6,10 +6,10 @@ require('angular-aria');
 require('angular-material');
 require('angular-resource');
 require('angular-ui-router');
-require('ngstorage');
 require('angular-messages');
 require('angular-validation-match');
 require('restangular');
+require('angular-cookie');
 
 require('./style/app.styl');
 
@@ -18,9 +18,9 @@ export var app = angular.module('app', [
   'ngResource',
   'ngMessages',
   'ngAria',
-  'ngStorage',
   'ngMaterial',
   'restangular',
+  'ipCookie',
   'ui.router',
   'validation.match'
 ]);
