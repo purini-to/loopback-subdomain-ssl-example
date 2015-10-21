@@ -32,6 +32,16 @@ export default class AppRouter {
       templateUrl: '/components/dashboard/dashboard.html',
       controller: DashboardCtrl,
       controllerAs: 'vm',
+      resolve: {
+        teams: function($state, userModel) {
+          return userModel.findTeams()
+            .then((result) => {
+              if (!userModel.teams || userModel.teams.length === 0)
+                $state.go('addTeam');
+              return result;
+            });
+        }
+      },
       auth: true,
     }).state('addTeam', {
       url: '/team/addTeam',

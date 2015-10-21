@@ -56,14 +56,11 @@ export default class LoginController {
     this.user.login(this.account, this.remain)
       .then((token) => {
         return this.user.findById();
-      }).then((token) => {
-        return this.user.findTeams();
-      }).then(this.user.saveStorageToken(this.remain)).then((result) => {
-        if (this.user.teams && this.user.teams.length > 0) this.tranDashboard();
-        else this.tranAddTeam();
+      }).then(this.user.saveStorageToken(this.remain))
+      .then((result) => {
+        this.tranDashboard();
         return result;
-      })
-      .catch(this.loginFailedHandler);
+      }).catch(this.loginFailedHandler);
   }
 
   /**

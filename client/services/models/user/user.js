@@ -166,10 +166,7 @@ export default class UserModel {
    * @param {Object} team チーム情報
    */
   addTeam(team) {
-    return this.user.post('teams', team).then((team) => {
-      this.teams.push(team);
-      return team;
-    });
+    return this.user.post('teams', team);
   }
 
   /**
