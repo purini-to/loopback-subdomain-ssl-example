@@ -58,6 +58,32 @@ export default class DashboardController {
   tranAddTeam() {
     this.state.go('addTeam');
   }
+
+  /**
+   * 画面表示前に実行する処理
+   */
+  /**
+   * [resolve description]
+   * @return {Object}           resolveオブジェクト
+   */
+  static resolve() {
+    return {
+      /**
+       * チーム一覧を取得する
+       * チームが存在しない場合は、チーム追加画面へ遷移
+       * @param  {[type]} $state    ステートサービス
+       * @param  {UserModel} userModel ユーザー情報モデル
+       * @return {Promise}           チーム取得プロミス
+       */
+      teams: function($state, userModel) {
+        return userModel.findTeams().then((result) => {
+          if (!userModel.teams || userModel.teams.length === 0)
+            $state.go('addTeam');
+          return result;
+        });
+      }
+    };
+  }
 }
 
 /**
