@@ -3,6 +3,7 @@ div.login-container.md-layout-column.md-layout-sm-fill.ng-cloak.bg-account(ng-cl
     .md-toolbar-tools.md-layout(layout-align="center")
       h2.md-flex Mutter
   md-content.md-padding.bg-view.flex-sm.md-layout.layout-align-center
+    md-progress-linear.md-accent(md-mode="indeterminate", ng-show="vm.processing")
     md-card.flex
       md-card-content.md-layout-column.flex
         form.md-layout-colmun.layout-margin(ng-submit="loginForm.$invalid ? null : vm.login()", name="loginForm", novalidate="")

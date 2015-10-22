@@ -61,9 +61,6 @@ export default class DashboardController {
 
   /**
    * 画面表示前に実行する処理
-   */
-  /**
-   * [resolve description]
    * @return {Object}           resolveオブジェクト
    */
   static resolve() {

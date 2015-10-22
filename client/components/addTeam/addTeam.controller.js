@@ -19,6 +19,7 @@ export default class AddTeamController {
         uniqueness: false
       }
     };
+    this.processing = false;
     this.state = $state;
     this.user = UserModel;
     this.errorHandler = errorHandler;
@@ -33,9 +34,12 @@ export default class AddTeamController {
    * チーム追加処理
    */
   addTeam() {
+    if (this.processing) return;
+    this.processing = true;
     this.user.addTeam(this.team).then((team) => {
-      this.state.go('dashboard');
-    }).catch(this.addTeamFailedHandler);
+        this.state.go('dashboard');
+      }).catch(this.addTeamFailedHandler)
+      .finally((result) => this.processing = false);
   }
 }
 

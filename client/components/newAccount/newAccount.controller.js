@@ -29,6 +29,7 @@ export default class NewAccountController {
       password: ''
     };
     this.passwordConfirm = '';
+    this.processing = false;
     this.validate = {
       username: {
         uniqueness: false
@@ -65,11 +66,14 @@ export default class NewAccountController {
    * 失敗時はアカウント作成失敗処理を呼び出す
    */
   save() {
+    if (this.processing) return;
+    this.processing = true;
     this.userModel.create(this.account).then((user) => {
-      this.showSaveSuccessToast();
-      this.state.go('login');
-      return user;
-    }).catch(this.saveFailedHandler);
+        this.showSaveSuccessToast();
+        this.state.go('login');
+        return user;
+      }).catch(this.saveFailedHandler)
+      .finally((result) => this.processing = false);
   }
 }
 

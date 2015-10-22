@@ -31,6 +31,7 @@ export default class LoginController {
     this.validate = {
       faildedLogin: false
     };
+    this.processing = false;
     /**
      * ログイン失敗処理
      * 401エラーの場合は、ログイン失敗フラグを設定する
@@ -50,6 +51,8 @@ export default class LoginController {
    * 失敗した場合は、ログイン失敗処理を実行する
    */
   login() {
+    if (this.processing) return;
+    this.processing = true;
     this.validate.faildedLogin = false;
     delete this.account.ttl;
     if (this.remain) this.account.ttl = NINETY_DAY;
@@ -60,7 +63,8 @@ export default class LoginController {
       .then((result) => {
         this.tranDashboard();
         return result;
-      }).catch(this.loginFailedHandler);
+      }).catch(this.loginFailedHandler)
+      .finally((result) => this.processing = false);
   }
 
   /**
