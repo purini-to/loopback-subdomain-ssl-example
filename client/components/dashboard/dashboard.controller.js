@@ -30,12 +30,14 @@ export default class DashboardController {
   /**
    * モデルの初期値登録とログイン失敗時のハンドラーを作成
    * @param  {[type]} $state       ui-routerオブジェクト
+   * @param  {[type]} $location    ロケーション情報サービス
    * @param  {[type]} UserModel    ユーザー情報モデル
    * @param  {[type]} errorHandler エラーハンドラー作成オブジェクト
    */
-  constructor($state, UserModel, errorHandler) {
+  constructor($state, $location, UserModel, errorHandler) {
     this.state = $state;
     this.user = UserModel;
+    this.location = $location;
     this.errorHandler = errorHandler;
     this.colors = COLORS;
   }
@@ -48,7 +50,10 @@ export default class DashboardController {
     if (!this.user || !this.user.teams) throw new Error('ユーザー情報またはチーム情報が存在しない');
     if (index < this.user.teams.length) {
       var team = this.user.teams[index];
-      console.log(team);
+      var domain = this.location.host();
+      var exep = /^(.*?:\/\/)(.*?)\/.*$/;
+      var url = this.location.absUrl().replace(exep, `$1${team.name}.$2`);
+      location.href = url;
     }
   }
 
@@ -89,6 +94,7 @@ export default class DashboardController {
  */
 DashboardController.$inject = [
   '$state',
+  '$location',
   'userModel',
   'errorHandler'
 ];
