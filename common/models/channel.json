@@ -1,5 +1,5 @@
 {
-  "name": "chanel",
+  "name": "channel",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -15,7 +15,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "team": {
+      "type": "belongsTo",
+      "model": "team",
+      "foreignKey": "teamId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

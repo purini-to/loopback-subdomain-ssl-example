@@ -1,0 +1,17 @@
+section.md-layout.flex
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.side-nav(md-component-id="sideNav",
+  md-is-locked-open="$mdMedia('gt-md')", x-scrollbar)
+    md-toolbar.md-hue-2.profile
+      md-button.flex.md-layout.layout-align-center
+        span.team-name {{main.team.team.name}}
+        div.md-layout.layout-align-center
+          md-icon.state adjust
+          span.user-name.flex {{main.user.user.username}}
+    md-content.flex(x-scrollbar)
+      md-subheader チャンネル
+      ul.nav-menu
+        li.md-layout(ng-repeat="channel in main.team.team.channels")
+          md-button.flex 
+            span.channel-prefix #
+            {{channel.name}}
+  ui-view.flex.md-layout-column.channel-view

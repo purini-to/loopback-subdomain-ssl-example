@@ -11,6 +11,7 @@ module.exports = {
   # entryポイントを指定、複数指定できます
   entry:
     app: "#{settings.src}/app.js"
+    "team.app": "#{settings.src}/components/team/team.app.js"
 
   # 出力先の設定
   output:

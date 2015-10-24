@@ -27,7 +27,7 @@ export default class AppRun {
         userModel.findAccessToken(info.token).then((token) => {
           return userModel.findById();
         }).then((result) => {
-          $state.go(toState.name);
+          $state.go(toState.name, toParams);
         }).catch((err) => {
           $state.go('login');
         });

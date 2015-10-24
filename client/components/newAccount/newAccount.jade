@@ -10,7 +10,7 @@ div.login-container.md-layout-column.md-layout-sm-fill.bg-account.ng-cloak
           h2.md-title.md-layout(layout-align="center") アカウント登録
           md-input-container.has-messages
             label ユーザー名
-            input(ng-model="vm.account.username", type="text", name="username", required="", minlength="3", maxlength="30", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/", x-uniqueness="vm.validate.username.uniqueness", focus-me="{{!newAccountForm.$submited}}")
+            input(ng-model="vm.account.username", type="text", name="username", required="", minlength="3", maxlength="30", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/", x-uniqueness="vm.validate.username.uniqueness", focus-me="!newAccountForm.$submited")
             div(ng-messages="newAccountForm.username.$error")
               div(ng-message="required") 必須入力です
               div(ng-message="maxlength") 30文字以内で入力してください

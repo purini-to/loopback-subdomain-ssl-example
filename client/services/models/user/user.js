@@ -46,7 +46,7 @@ export default class UserModel {
     var rest = API.get(instance);
     API.set(instance, rest.withConfig((RestangularConfigurer) => {
       RestangularConfigurer.setDefaultRequestParams({
-        access_token: _token
+        'access_token': _token
       });
     }));
   }

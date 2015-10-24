@@ -1,0 +1,89 @@
+@import "./base/_core.styl"
+@import "./base/_media.styl"
+@import "./base/_animation.styl"
+
+bgColor = #fff
+viewColor = #fff
+
+side-nav-width = 256px
+
+allWidth(width) {
+  width width
+  min-width width
+  max-width width
+}
+
+html,
+body
+  background-color bgColor
+
+.bg-view
+  background-color viewColor !important
+
+md-sidenav.side-nav
+  background-color rgb(55,71,79)
+  color rgba(255,255,255,0.87)
+  allWidth(side-nav-width)
+  md-icon.state
+    font-size 16px
+    line-height 1.3rem
+    text-align left
+    width auto
+    padding-right 2px
+    color #61D27A
+  .profile
+    .md-button
+      text-transform none
+      margin 0
+      padding 0 16px
+    span
+      display block
+      text-overflow ellipsis
+      text-align left
+      overflow hidden
+      white-space nowrap
+      line-height 1.375rem
+      &.team-name
+        font-weight bold
+        font-size 1.125rem
+  md-content
+    padding 0
+    color inherit
+    background-color inherit
+    .md-subheader
+      padding-top 4px
+      margin 0
+      background-color rgb(55,71,79)
+      color inherit
+      .md-subheader-inner
+        padding: 8px 0 8px 16px
+  .nav-menu
+    list-style none
+    padding 0
+    margin 0
+    .md-button
+      cursor pointer
+      display block
+      line-height 40px
+      margin 0
+      max-height 40px
+      padding 0 16px
+      text-align left
+      text-decoration none
+      white-space normal
+      width 100%
+      font-size 16px
+      text-transform none
+
+.channel-prefix
+  margin-left 2px
+  margin-right 1px
+  opacity .5
+
+.channel-view
+  .channel-title
+    background-color #eee
+    color rgba(0,0,0,.8)
+  .tool-bittons
+    .md-button.md-icon-button
+      margin 0

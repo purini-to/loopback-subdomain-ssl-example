@@ -16,8 +16,9 @@ export default class FocusMe {
    */
   constructor($timeout) {
     this.restrict = 'A';
+    this.scope = {focusMe: '='};
     TIMEOUT.set(this, function(element) {
-      $timeout(() => element.focus(), 700);
+      $timeout(() => element.focus(), 400);
     });
   }
 
@@ -29,7 +30,7 @@ export default class FocusMe {
    */
   link(scope, element, attrs) {
     scope.$watch('focusMe', (value) => {
-      if (attrs.focusMe === 'true') TIMEOUT.get(FocusMe.instance)(element[0]);
+      if (value === true) TIMEOUT.get(FocusMe.instance)(element[0]);
     });
   }
 

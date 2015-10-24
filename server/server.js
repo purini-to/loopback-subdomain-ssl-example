@@ -13,6 +13,7 @@ var app = module.exports = loopback();
 var reg = new RegExp('^(.*).' + config.host, 'g');
 app.get('/[^api][^\.]+$', function(req, res, next) {
   req.subdomain = req.host.replace(reg, '$1');
+  if (req.subdomain === config.host) delete req.subdomain;
   next();
 });
 

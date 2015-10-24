@@ -19,6 +19,11 @@
     "users": {
       "type": "hasAndBelongsToMany",
       "model": "user"
+    },
+    "channels": {
+      "type": "hasMany",
+      "model": "channel",
+      "foreignKey": "channels"
     }
   },
   "acls": [
@@ -33,6 +38,13 @@
       "principalType": "ROLE",
       "principalId": "teamMember",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "findOne"
     }
   ],
   "methods": {}

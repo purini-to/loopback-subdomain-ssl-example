@@ -13,7 +13,7 @@ div.login-container.md-layout-column.md-layout-sm-fill.ng-cloak.bg-account(ng-cl
             span.message(ng-show="vm.validate.faildedLogin") メールアドレスとパスワードが一致しません
           md-input-container
             label メールアドレス
-            input(ng-model="vm.account.email", type="email", name="id", required="", maxlength="30", focus-me="{{!loginForm.$submited}}")
+            input(ng-model="vm.account.email", type="email", name="id", required="", maxlength="30", focus-me="!loginForm.$submited")
           md-input-container
             label パスワード
             input(ng-model="vm.account.password", type="password", name="password", required="", maxlength="20")

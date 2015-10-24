@@ -32,12 +32,12 @@
     "dataSource": "db",
     "public": true
   },
-  "chanel": {
-    "dataSource": "db",
-    "public": false
-  },
   "accessToken": {
     "dataSource": "db",
     "public": true
+  },
+  "channel": {
+    "dataSource": "db",
+    "public": false
   }
 }
