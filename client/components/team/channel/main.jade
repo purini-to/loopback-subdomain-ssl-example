@@ -8,7 +8,13 @@ section.md-layout.flex
           md-icon.state adjust
           span.user-name.flex {{main.user.user.username}}
     md-content.flex(x-scrollbar)
-      md-subheader チャンネル
+      md-subheader
+        .md-layout.flex
+          span.header-text チャンネル
+          span.flex
+          md-button.md-icon-button.md-accent.md-hue-1(aria-label="channelAdd",
+          ng-click="main.openDialogNewChannel($event)")
+            md-icon add_circle_outline
       ul.nav-menu
         li.md-layout(ng-repeat="channel in main.team.team.channels")
           md-button.flex 

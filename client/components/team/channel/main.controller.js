@@ -1,5 +1,7 @@
 'use strict';
 
+import NewChannelController from './newChannel.controller';
+
 /**
  * メイン画面のコントローラー
  */
@@ -7,12 +9,16 @@ export default class MainController {
   /**
    * ログインユーザー情報やチーム情報を設定
    * @param  {[type]} $state       ステートサービス
+   * @param  {[type]} $mdDialog    ダイアログサービス
+   * @param  {[type]} $mdToast     トーストサービス
    * @param  {[type]} userModel    ユーザー情報
    * @param  {[type]} teamModel    チーム情報
    * @param  {[type]} errorHandler エラーハンドラーサービス
    */
-  constructor($state, userModel, teamModel, errorHandler) {
+  constructor($state, $mdDialog, $mdToast, userModel, teamModel, errorHandler) {
     this.state = $state;
+    this.dialog = $mdDialog;
+    this.toast = $mdToast;
     this.user = userModel;
     this.team = teamModel;
   }
@@ -21,6 +27,21 @@ export default class MainController {
     this.team.addChannel({
       name: 'general',
       description: ''
+    });
+  }
+
+  /**
+   * チャンネル作成ダイアログを開きます
+   * @param  {Event} ev  クリックイベント
+   */
+  openDialogNewChannel(ev) {
+    this.dialog.show({
+      controller: NewChannelController,
+      controllerAs: 'dl',
+      templateUrl: '/components/team/channel/dialogAddChannel.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
     });
   }
 
@@ -59,6 +80,8 @@ export default class MainController {
  */
 MainController.$inject = [
   '$state',
+  '$mdDialog',
+  '$mdToast',
   'userModel',
   'teamModel',
   'errorHandler',

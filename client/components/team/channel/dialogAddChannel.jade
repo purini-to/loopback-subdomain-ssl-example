@@ -1,0 +1,28 @@
+md-dialog.ng-cloak(aria-label="dialogAddChannel")
+  form(ng-submit="newChannelForm.$invalid ? null : dl.save()", name="newChannelForm", novalidate="")
+    md-toolbar
+      .md-toolbar-tools
+        h2 チャンネル作成
+        span.flex
+        md-button.md-icon-button(type="button", ng-click="dl.cancel()", aria-label="Close dialog")
+          md-icon close
+    md-dialog-content(x-scrollbar)
+      .md-dialog-content
+        p.hide-sm チーム内の全員が参加可能なチャンネルを作成します
+        md-input-container.has-messages
+          label チャンネル名
+          input(ng-model="dl.channel.name", type="text", name="name", required="", minlength="3",
+          maxlength="15", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/", md-autofocus)
+          div(ng-messages="newChannelForm.name.$error")
+            div(ng-message="required") 必須入力です
+            div(ng-message="maxlength") 15文字以内で入力してください
+            div(ng-message="minlength") 3文字以上で入力してください
+            div(ng-message="pattern") 半角のみ有効です
+        md-input-container.has-messages.hide-sm
+          label 目的
+          textarea(ng-model="dl.channel.description", name="description", rows="2", md-maxlength="50")
+          div(ng-messages="newChannelForm.description.$error")
+            div(ng-message="maxlength") 150文字以内で入力してください
+    .md-actions.md-layout
+      md-button.md-warn(type="button", ng-click="dl.cancel()") キャンセル
+      md-button.md-accent(type="submit") 作成
