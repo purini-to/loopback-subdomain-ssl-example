@@ -22,8 +22,7 @@
     },
     "channels": {
       "type": "hasMany",
-      "model": "channel",
-      "foreignKey": "channels"
+      "model": "channel"
     }
   },
   "acls": [

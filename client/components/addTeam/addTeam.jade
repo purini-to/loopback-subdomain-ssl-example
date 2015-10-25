@@ -11,7 +11,7 @@
             .md-layout-sm-column.md-layout
               md-input-container.has-messages
                 label チーム名
-                input(ng-model="vm.team.name", type="text", name="name", required="", maxlength="15", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/", x-uniqueness="vm.validate.name.uniqueness", focus-me="{{!teamForm.$submited}}")
+                input(ng-model="vm.team.name", type="text", name="name", required="", maxlength="15", ng-pattern="/^[a-zA-Z0-9!-/:-@¥[-`{-~]+$/", x-uniqueness="vm.validate.name.uniqueness", focus-me="!teamForm.$submited")
                 div(ng-messages="teamForm.name.$error")
                   div(ng-message="required") 必須入力です
                   div(ng-message="maxlength") 15文字以内で入力してください

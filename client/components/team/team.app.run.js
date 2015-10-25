@@ -12,14 +12,22 @@ export default class TeamAppRun {
    * @param  {AppConstant} constant アプリケーション定数
    * @param  {[User]} Restangular   REST APIサービス
    * @param  {[type]} UserModel     ユーザー情報モデル
+   * @param  {[type]} teamSocket   チームごとのwebソケットサービス
    * @param  {[type]} errorHandler  エラーハンドラー作成オブジェクト
    */
   constructor($rootScope, $state, $location, constant,
-      Restangular, userModel, errorHandler) {
-      var transRootDomain = function () {
+      Restangular, userModel, teamSocket, errorHandler) {
+      // エラー発生時はログイン画面へ遷移する
+      var transRootDomain = function() {
         var url = `${$location.protocol()}://${constant.domain}`;
         location.href = `${url}:${$location.port()}`;
       };
+      // ソケットのコネクションが成立していない場合は、接続する
+      if (!teamSocket.socket) {
+        var name = $location.host().replace(`.${constant.domain}`, '');
+        teamSocket.connect(name, transRootDomain);
+      }
+      // ページ遷移時に認証チェックを行う
       $rootScope.$on('$stateChangeStart', (e, toState, toParams,
         fromState, fromParams) => {
         // authプロパティが存在しなければチェックせずに終了
@@ -52,13 +60,14 @@ export default class TeamAppRun {
      * @param  {[type]} $location     ロケーション情報サービス
      * @param  {AppConstant} constant アプリケーション定数
      * @param  {[User]} Restangular REST APIサービス
-     * @param  {[type]} UserModel    ユーザー情報モデル
+     * @param  {[type]} userModel    ユーザー情報モデル
+     * @param  {[type]} teamSocket   チームごとのwebソケットサービス
      * @param  {[type]} errorHandler エラーハンドラー作成オブジェクト
      */
   static activate($rootScope, $state, $location, constant, Restangular,
-    userModel, errorHandler) {
+    userModel, teamSocket, errorHandler) {
     TeamAppRun.instance = new TeamAppRun($rootScope, $state,
-      $location, constant, Restangular, userModel, errorHandler);
+      $location, constant, Restangular, userModel, teamSocket, errorHandler);
     return TeamAppRun.instance;
   }
 }
@@ -74,5 +83,6 @@ TeamAppRun.activate.$inject = [
   'constant',
   'Restangular',
   'userModel',
+  'teamSocket',
   'errorHandler'
 ];

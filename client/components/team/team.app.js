@@ -10,6 +10,7 @@ require('angular-messages');
 require('angular-validation-match');
 require('restangular');
 require('angular-cookie');
+require('angular-socket-io');
 
 require('../../style/team.styl');
 
@@ -22,7 +23,8 @@ export var app = angular.module('app', [
   'restangular',
   'ipCookie',
   'ui.router',
-  'validation.match'
+  'validation.match',
+  'btford.socket-io',
 ]);
 
 // 設定系
@@ -61,4 +63,6 @@ app.factory('teamModel', TeamModel.activate);
 
 // サービス系
 import ErrorHandler from '../../services/handler/errorHandler';
+import TeamSocket from '../../services/socket/teamSocket';
 app.factory('errorHandler', ErrorHandler.activate);
+app.factory('teamSocket', TeamSocket.activate);

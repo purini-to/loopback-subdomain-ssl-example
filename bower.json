@@ -29,6 +29,7 @@
     "restangular": "~1.5.1",
     "lodash": "~3.10.1",
     "perfect-scrollbar": "~0.6.7",
-    "angular-cookie": "~4.0.9"
+    "angular-cookie": "~4.0.9",
+    "angular-socket-io": "~0.7.0"
   }
 }

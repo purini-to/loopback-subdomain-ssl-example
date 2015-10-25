@@ -57,9 +57,11 @@ app.start = function() {
     var protocol = (sslOnly) ? 'https://' : 'http://';
     listenReport(protocol, app.get('port'));
   });
+
+  return server;
 };
 
 // start the server if `$ node server.js`
 if (require.main === module) {
-  app.start();
+  app.server = app.start();
 }

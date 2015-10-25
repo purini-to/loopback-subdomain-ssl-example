@@ -2,7 +2,7 @@ section.md-layout.flex
   md-sidenav.md-sidenav-left.md-whiteframe-z2.side-nav(md-component-id="sideNav",
   md-is-locked-open="$mdMedia('gt-md')", x-scrollbar)
     md-toolbar.md-hue-2.profile
-      md-button.flex.md-layout.layout-align-center
+      md-button.flex.md-layout.layout-align-center(ng-click="main.test()")
         span.team-name {{main.team.team.name}}
         div.md-layout.layout-align-center
           md-icon.state adjust
