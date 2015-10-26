@@ -23,6 +23,7 @@ export default class NewChannelController {
     this.document = $document;
     this.dialog = $mdDialog;
     this.team = teamModel;
+    this.processing = false;
   }
 
   /**
@@ -30,6 +31,8 @@ export default class NewChannelController {
    * @return {Promise} チャンネル保存のプロミス
    */
   save() {
+    if (this.processing) return;
+    this.processing = true;
     var data = this.channel;
     this.team.addChannel(data).then((channel) => {
       this.dialog.hide(channel);
@@ -43,7 +46,7 @@ export default class NewChannelController {
       return channel;
     }).catch((err) => {
       console.error(err);
-    });
+    }).finally((result) => this.processing = false);
   }
 
   /**

@@ -1,6 +1,7 @@
 module.exports = function(app, team, io) {
   var Team = app.models.Team;
   var Channel = app.models.Channel;
+  var Message = app.models.Message;
 
   var nameSpace = '/' + team.name;
   var teamNs = io.of(nameSpace);
@@ -13,9 +14,11 @@ module.exports = function(app, team, io) {
     });
   });
   Channel.on('add:channel' + team.id, function(channel) {
-    console.log(team.name, channel);
-    if (channel.teamId === team.id) {
-      teamNs.emit('add:channel', channel);
-    }
+    console.log('add:channel:' + team.name, channel);
+    teamNs.emit('add:channel', channel);
+  });
+  Message.on('add:message' + team.id, function(message) {
+    console.log('add:message:' + team.name, message);
+    teamNs.emit('add:message', message);
   });
 };

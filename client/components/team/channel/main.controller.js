@@ -23,13 +23,6 @@ export default class MainController {
     this.team = teamModel;
   }
 
-  test() {
-    this.team.addChannel({
-      name: 'general',
-      description: ''
-    });
-  }
-
   /**
    * チャンネル作成ダイアログを開きます
    * @param  {Event} ev  クリックイベント

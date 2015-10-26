@@ -11,6 +11,7 @@ require('angular-validation-match');
 require('restangular');
 require('angular-cookie');
 require('angular-socket-io');
+require('angular-elastic');
 
 require('../../style/team.styl');
 
@@ -25,6 +26,7 @@ export var app = angular.module('app', [
   'ui.router',
   'validation.match',
   'btford.socket-io',
+  'monospaced.elastic',
 ]);
 
 // 設定系
@@ -48,18 +50,22 @@ import Format from '../../directives/validators/format';
 import Uniqueness from '../../directives/validators/uniqueness';
 import PageAnimation from '../../directives/animations/pageAnimation';
 import Scrollbar from '../../directives/scroll/scrollbar';
+import NgEnter from '../../directives/keys/ngEnter';
 app.directive('focusMe', FocusMe.activate);
 app.directive('appValidators', AppValidators.activate);
 app.directive('format', Format.activate);
 app.directive('uniqueness', Uniqueness.activate);
 app.directive('pageAnimation', PageAnimation.activate);
 app.directive('scrollbar', Scrollbar.activate);
+app.directive('ngEnter', NgEnter.activate);
 
 // モデル系
 import UserModel from '../../services/models/user/user';
 import TeamModel from '../../services/models/team/team';
+import ChannelModel from '../../services/models/channel/channel';
 app.factory('userModel', UserModel.activate);
 app.factory('teamModel', TeamModel.activate);
+app.factory('channelModel', ChannelModel.activate);
 
 // サービス系
 import ErrorHandler from '../../services/handler/errorHandler';

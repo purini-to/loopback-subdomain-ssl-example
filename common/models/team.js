@@ -6,9 +6,8 @@ module.exports = function(Team) {
   });
 
   /**
-   * ユーザー作成前にパスワードのハッシュ化を行う
-   * 既にバリデーション処理でOKとなっている
-   * @param  {UserModel}   user ユーザーのモデル
+   * チーム作成後にデフォルトチャンネルの作成を行う
+   * @param  {TeamModel}   team チームのモデル
    * @param  {next} next 次の処理を行うコールバック関数
    */
   Team.observe('after save', function(team, next) {

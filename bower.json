@@ -30,6 +30,7 @@
     "lodash": "~3.10.1",
     "perfect-scrollbar": "~0.6.7",
     "angular-cookie": "~4.0.9",
-    "angular-socket-io": "~0.7.0"
+    "angular-socket-io": "~0.7.0",
+    "angular-elastic": "~2.5.1"
   }
 }

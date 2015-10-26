@@ -97,3 +97,53 @@ md-sidenav.side-nav
   .tool-bittons
     .md-button.md-icon-button
       margin 0
+  .channel-body
+    padding 8px
+    margin-bottom 40px
+  .message-container
+    .message
+      padding-top 3px
+      img.md-avatar
+        margin-top 0
+      div.md-list-item-text
+        margin 0
+      .message-info
+        .user-name
+          font-weight bold
+          color rgba(0,0,0,.85)
+        .create-time
+          margin-left 5px
+          cursor pointer
+          &:hover
+            text-decoration underline
+
+  .channel-footer
+    background-color viewColor
+    position absolute
+    bottom 0px
+    right 16px
+    left 16px
+    padding-bottom 8px
+    .message-form
+      border-width 3px
+      border-style solid
+      border-color rgba(0,0,0,.18)
+      border-radius 8px
+      &.focus
+        border-color rgb(55,71,79)
+        .text-message
+          border-color rgb(55,71,79)
+      .md-button.launch
+        min-width 36px
+        margin 0
+        border-radius 0
+      .text-message
+        margin-right 8px
+        padding 8px
+        border-width 3px
+        resize none
+        border-color rgba(0,0,0,.18)
+        border-style none
+        border-left-style solid
+        &:focus
+          outline none !important

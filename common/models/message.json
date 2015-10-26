@@ -15,6 +15,9 @@
     },
     "contentMetaData": {
       "type": "object"
+    },
+    "createdAt": {
+      "type": "date"
     }
   },
   "validations": [],
@@ -25,7 +28,7 @@
       "foreignKey": "channelId"
     },
     "users": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "user",
       "foreignKey": "userId"
     }
