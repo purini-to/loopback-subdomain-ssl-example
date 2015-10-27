@@ -15,6 +15,9 @@ function factoryAddMessageFunc() {
     var instance = ChannelModel.instance;
     if (instance.channel && instance.channel.messages) {
       instance.channel.messages.push(data);
+      instance.addMessageHook.forEach(function (cb) {
+        cb(data);
+      });
     }
   };
 }
@@ -30,6 +33,7 @@ export default class ChannelModel {
    */
   constructor(Restangular, teamSocket) {
     this.channel = {};
+    this.addMessageHook = [];
     // メッセージ追加イベント時にモデルに反映させる
     teamSocket.socket.on('add:message', factoryAddMessageFunc());
     API.set(this, Restangular);
@@ -60,6 +64,14 @@ export default class ChannelModel {
     if (!this.channel.id) throw new Error('チャンネルが存在しません');
     return API.get(ChannelModel.instance).one(PREFIX, this.channel.id)
     .one('messages').post(null, message);
+  }
+
+  /**
+   * メッセージ追加時に起動する処理を登録する
+   * @param  {Function} cb コールバック
+   */
+  hookAddMessage(cb) {
+    this.addMessageHook.push(cb);
   }
 
   /**

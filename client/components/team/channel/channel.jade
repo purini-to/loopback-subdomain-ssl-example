@@ -19,19 +19,20 @@ md-toolbar.channel-title.md-whiteframe-z2
         md-icon more_vert
 md-progress-linear.md-accent(md-mode="indeterminate", ng-show="vm.processing")
 md-content.md-layout-column.flex
-  md-content.md-layout.flex.channel-body(x-scrollbar)
+  md-content.md-layout.flex.channel-body(x-scrollbar, scrollbar-update="vm.channel.channel.messages.length")
     md-list.message-container.flex
       md-list-item.message.md-3-line(ng-repeat="item in vm.channel.channel.messages")
-        img.md-avatar(ng-src="/assets/avatar/test.png")
+        div.avatar-container
+          img.md-avatar(ng-src="/assets/avatar/test.png", ng-if="!vm.isContinuation($index)")
         div.md-list-item-text.md-layout-column
           p.message-info
             span.user-name urainkyo
             small.create-time
               md-tooltip(md-direction="top") {{::item.createdAt | date:'yyyy/MM/dd HH:mm:ss'}}
               {{::item.createdAt | date:'HH:mm'}}
-          h3 {{item.text}}
+          h3.content-text {{item.text}}
   .channel-footer
-    form.md-whiteframe-z2.md-layout.message-form.layout-align-center(ng-submit="messageForm.$invalid ? null : vm.send()", name="messageForm", novalidate="", ng-class="{focus: vm.isInputMessageFocus}")
+    form.md-whiteframe-z1.md-layout.message-form.layout-align-center(ng-submit="messageForm.$invalid ? null : vm.send()", name="messageForm", novalidate="", ng-class="{focus: vm.isInputMessageFocus}")
       div.md-layout
         md-button.launch.flex.md-accent.md-hue-3(aria-label="launch")
           md-icon.medium launch

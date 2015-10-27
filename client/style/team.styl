@@ -98,15 +98,28 @@ md-sidenav.side-nav
     .md-button.md-icon-button
       margin 0
   .channel-body
-    padding 8px
-    margin-bottom 40px
+    padding 0 8px
+    margin-top 8px
+    margin-bottom 64px
   .message-container
     .message
+      height auto
       padding-top 3px
-      img.md-avatar
+      .avatar-container
+        width 40px
+        height 40px
         margin-top 0
+        margin-bottom 8px
+        margin-right 13px
+        img.md-avatar
+          width inherit
+          height inherit
+          border-radius .2rem
+          box-sizing content-box
       div.md-list-item-text
         margin 0
+        .content-text
+          white-space pre
       .message-info
         .user-name
           font-weight bold
