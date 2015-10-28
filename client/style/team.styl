@@ -103,8 +103,9 @@ md-sidenav.side-nav
     margin-bottom 64px
   .message-container
     .message
+      min-height inherit
       height auto
-      padding-top 3px
+      padding-top 8px
       .avatar-container
         width 40px
         height 40px
@@ -116,19 +117,28 @@ md-sidenav.side-nav
           height inherit
           border-radius .2rem
           box-sizing content-box
+          &.no-hover
+            opacity 0.8
+      .info-container
+        margin-right 13px
+        .create-time
+          vertical-align top
+      .user-name
+        font-weight bold
+        color rgba(0,0,0,.85)
+      .create-time
+        margin-left 5px
+        cursor pointer
+        font-weight 500
+        line-height 1.6em
+        color rgba(0,0,0,0.54)
+        font-size .75rem
+        &:hover
+          text-decoration underline
       div.md-list-item-text
         margin 0
         .content-text
           white-space pre
-      .message-info
-        .user-name
-          font-weight bold
-          color rgba(0,0,0,.85)
-        .create-time
-          margin-left 5px
-          cursor pointer
-          &:hover
-            text-decoration underline
 
   .channel-footer
     background-color viewColor
