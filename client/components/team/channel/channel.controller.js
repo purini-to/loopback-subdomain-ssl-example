@@ -27,6 +27,7 @@ export default class ChannelController {
     this.isInputMessageFocus = false;
     this.processing = false;
     this.scrollUpdate = false;
+    this.loading = true;
     channelModel.hookAddMessage((data) => {
       this.scrollUpdate = 'goBottom';
     });
@@ -34,7 +35,9 @@ export default class ChannelController {
     var channel = teamModel.team.channels.find((item) => {
       return item.name === channelName;
     });
-    channelModel.findMessages(channel);
+    channelModel.findMessages(channel).then((messages) => {
+      this.loading = false;
+    });
     this.clearMessage();
   }
 
@@ -74,7 +77,7 @@ export default class ChannelController {
    * @return {Boolean}  true:続き  |  false:続きではない
    */
   isContinuation(index) {
-    if(index === 0) return false;
+    if (index === 0) return false;
     var pre = index - 1;
     var target = this.channel.channel.messages[index];
     var preTarget = this.channel.channel.messages[pre];

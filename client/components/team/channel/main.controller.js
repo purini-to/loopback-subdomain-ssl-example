@@ -9,14 +9,17 @@ export default class MainController {
   /**
    * ログインユーザー情報やチーム情報を設定
    * @param  {[type]} $state       ステートサービス
+   * @param  {[type]} $mdSidenav   サイドナビサービス
    * @param  {[type]} $mdDialog    ダイアログサービス
    * @param  {[type]} $mdToast     トーストサービス
    * @param  {[type]} userModel    ユーザー情報
    * @param  {[type]} teamModel    チーム情報
    * @param  {[type]} errorHandler エラーハンドラーサービス
    */
-  constructor($state, $mdDialog, $mdToast, userModel, teamModel, errorHandler) {
+  constructor($state, $mdSidenav, $mdDialog, $mdToast,
+    userModel, teamModel, errorHandler) {
     this.state = $state;
+    this.sideNav = $mdSidenav;
     this.dialog = $mdDialog;
     this.toast = $mdToast;
     this.user = userModel;
@@ -36,6 +39,13 @@ export default class MainController {
       targetEvent: ev,
       clickOutsideToClose: true
     });
+  }
+
+  /**
+   * サイドメニューを閉じます
+   */
+  close() {
+    this.sideNav('sideNav').close();
   }
 
   /**
@@ -73,6 +83,7 @@ export default class MainController {
  */
 MainController.$inject = [
   '$state',
+  '$mdSidenav',
   '$mdDialog',
   '$mdToast',
   'userModel',

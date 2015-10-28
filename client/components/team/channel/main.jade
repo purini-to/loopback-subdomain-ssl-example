@@ -17,7 +17,7 @@ section.md-layout.flex
             md-icon add_circle_outline
       ul.nav-menu
         li.md-layout(ng-repeat="channel in main.team.team.channels")
-          md-button.flex 
+          md-button.flex(ui-sref="channel.messages({channelName: channel.name})", ng-click="main.close()")
             span.channel-prefix #
             {{channel.name}}
   ui-view.flex.md-layout-column.channel-view
