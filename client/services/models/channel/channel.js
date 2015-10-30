@@ -6,6 +6,12 @@ const PREFIX = 'channels';
 const API = new WeakMap();
 const SOCKET = new WeakMap();
 
+// デフォルトで検索時に指定するフィルタパラメータ
+const DEFAULT_FILTER_PARAMS = {
+  limit: 30,
+  order: 'id desc',
+};
+
 /**
  * メッセージを追加する関数を生成
  * @return {Function}      メッセージを追加する関数
@@ -15,10 +21,22 @@ function factoryAddMessageFunc() {
     var instance = ChannelModel.instance;
     if (instance.channel && instance.channel.messages) {
       instance.channel.messages.push(data);
-      instance.addMessageHook.forEach(function (cb) {
+      instance.addMessageHook.forEach(function(cb) {
         cb(data);
       });
     }
+  };
+}
+
+/**
+ * フィルタのパラメータ（文字列）を取得します
+ * @param  {Integer} skip 読み込みメッセージのスキップ数（オフセット）
+ * @return {String}       フィルタ文字列
+ */
+function getFilterParam(skip) {
+  if (skip) DEFAULT_FILTER_PARAMS.skip = skip;
+  return {
+    filter: JSON.stringify(DEFAULT_FILTER_PARAMS)
   };
 }
 
@@ -34,6 +52,7 @@ export default class ChannelModel {
   constructor(Restangular, teamSocket) {
     this.channel = {};
     this.addMessageHook = [];
+    this.isLimitMore = false;
     // メッセージ追加イベント時にモデルに反映させる
     teamSocket.socket.on('add:message', factoryAddMessageFunc());
     API.set(this, Restangular);
@@ -48,9 +67,29 @@ export default class ChannelModel {
   findMessages(channel) {
     var id = channel.id || this.channel.id;
     return API.get(ChannelModel.instance).one(PREFIX, id)
-      .one('messages').get().then((messages) => {
+      .one('messages').get(getFilterParam()).then((messages) => {
         this.channel = channel;
-        this.channel.messages = messages;
+        this.channel.messages = messages.reverse();
+        return messages;
+      });
+  }
+
+  /**
+   * 追加でメッセージを取得します
+   * @return {Promise} メッセージ取得プロミス
+   */
+  findMoreMessages() {
+    if (this.isLimitMore) return;
+    var id = this.channel.id;
+    var skip = this.channel.messages.length;
+    return API.get(ChannelModel.instance).one(PREFIX, id)
+      .one('messages').get(getFilterParam(skip)).then((messages) => {
+        if (messages.length === 0) {
+          this.isLimitMore = true;
+          return messages;
+        }
+        var _m = messages.reverse();
+        this.channel.messages = _m.concat(this.channel.messages);
         return messages;
       });
   }
@@ -63,7 +102,7 @@ export default class ChannelModel {
   sendMessage(message) {
     if (!this.channel.id) throw new Error('チャンネルが存在しません');
     return API.get(ChannelModel.instance).one(PREFIX, this.channel.id)
-    .one('messages').post(null, message);
+      .one('messages').post(null, message);
   }
 
   /**

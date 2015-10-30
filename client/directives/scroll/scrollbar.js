@@ -23,12 +23,36 @@ export default class Scrollbar {
       wheelPropagation: true,
       minScrollbarLength: 20
     });
+    var init = false;
+    var chache = 0;
+    if (attrs.scrollbarInit) init = scope.$eval(attrs.scrollbarInit);
     if (attrs.scrollbarUpdate) {
       scope.$watch(attrs.scrollbarUpdate, () => {
         TIMEOUT.get(Scrollbar.instance)(() => {
-          el.scrollTop = el.scrollHeight;
-          Ps.update(el);
-        }, 100);
+          var scrollArea = el.clientHeight + el.scrollTop;
+          var isScrollBeforeBottom = chache > 0;
+          if (attrs.scrollbarStopReachStart) {
+            var isStop = scope.$eval(attrs.scrollbarStopReachStart);
+            isScrollBeforeBottom = isScrollBeforeBottom && !isStop;
+          }
+          if (init || el.scrollHeight - scrollArea < 200) {
+            el.scrollTop = el.scrollHeight;
+            Ps.update(el);
+            if (init) init = false;
+          } else if (isScrollBeforeBottom) {
+            el.scrollTop = el.scrollHeight - chache;
+            Ps.update(el);
+          }
+          chache = 0;
+        });
+      });
+    }
+    if (attrs.scrollbarReachStart) {
+      el.addEventListener('ps-y-reach-start', function() {
+        if (chache === 0) {
+          chache = el.scrollHeight;
+          scope.$eval(attrs.scrollbarReachStart);
+        }
       });
     }
   }

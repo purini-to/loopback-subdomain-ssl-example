@@ -52,12 +52,23 @@ export default class ChannelController {
    * メッセージを送信する
    */
   send() {
-    if (this.processing) return;
+    if (this.processing || !this.validateMessage()) return;
     this.processing = true;
     var data = this.message;
     this.channel.sendMessage(data).then((message) => {
       this.clearMessage();
     }).finally((result) => this.processing = false);
+  }
+
+  /**
+   * メッセージのバリデーションメソッド
+   * トリム結果が空文字か判定します
+   * @return {Boolean} true: 空文字ではない | false: 空文字
+   */
+  validateMessage() {
+    var msg = this.message.text;
+    msg = msg.replace(/^[ 　]+|[ 　]+$/g, '');
+    return msg !== '';
   }
 
   /**
@@ -87,6 +98,22 @@ export default class ChannelController {
     var dateLp = new Date(preTarget.createdAt).getTime();
     var diff = (dateL - dateLp) / (1000 * 60);
     return l === lp && diff < 5;
+  }
+
+  /**
+   * もっと過去のメッセージを取得します
+   */
+  findMore() {
+    if (this.processing) return;
+    this.processing = true;
+    var api = this.channel.findMoreMessages();
+    if (api) {
+      api.then((messages) => {
+        this.processing = false;
+      });
+    } else {
+      this.processing = false;
+    }
   }
 }
 

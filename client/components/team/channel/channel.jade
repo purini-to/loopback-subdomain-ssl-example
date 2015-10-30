@@ -19,7 +19,9 @@ md-toolbar.channel-title.md-whiteframe-z2
         md-icon more_vert
 md-progress-linear.md-accent(md-mode="indeterminate", ng-show="vm.processing")
 md-content.md-layout-column.flex
-  md-content.md-layout.flex.channel-body(ng-if="!vm.loading", x-scrollbar, scrollbar-update="vm.channel.channel.messages.length")
+  md-content.md-layout.flex.channel-body(ng-if="!vm.loading", x-scrollbar,
+  scrollbar-update="vm.channel.channel.messages.length", scrollbar-reach-start="vm.findMore()",
+  scrollbar-init="true", scrollbar-stop-reach-start="vm.channel.isLimitMore")
     md-list.message-container.flex
       md-list-item.message.md-3-line(ng-repeat="item in vm.channel.channel.messages",
       ng-init="hovering=false" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false")
@@ -43,6 +45,6 @@ md-content.md-layout-column.flex
         md-button.launch.flex.md-accent.md-hue-3(aria-label="launch")
           md-icon.medium launch
       div.flex.md-layout
-        textarea.text-message.flex(ng-model="vm.message.text", name="text", required, aria-label="message text", ng-enter="vm.send($event)",
+        textarea.text-message.flex(ng-model="vm.message.text", name="text", required="", aria-label="message text", ng-enter="vm.send($event)",
         rows="1", msd-elastic, spellcheck="false", ng-focus="vm.isInputMessageFocus=true", ng-blur="vm.isInputMessageFocus=false")
   
