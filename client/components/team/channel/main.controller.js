@@ -1,6 +1,7 @@
 'use strict';
 
 import NewChannelController from './newChannel.controller';
+import InvitationController from './invitation.controller';
 
 /**
  * メイン画面のコントローラー
@@ -24,11 +25,12 @@ export default class MainController {
     this.toast = $mdToast;
     this.user = userModel;
     this.team = teamModel;
+    this.originalEvent = null;
   }
 
   /**
    * チャンネル作成ダイアログを開きます
-   * @param  {Event} ev  クリックイベント
+   * @param  {Object} ev  クリックイベント
    */
   openDialogNewChannel(ev) {
     this.dialog.show({
@@ -42,11 +44,28 @@ export default class MainController {
   }
 
   /**
+   * メンバー招待ダイアログを開く
+   * @param  {Object} ev クリックイベント
+   */
+  openDialogInvitation(ev) {
+    this.dialog.show({
+      controller: InvitationController,
+      controllerAs: 'dl',
+      templateUrl: '/components/team/channel/dialogInvitation.html',
+      parent: angular.element(document.body),
+      targetEvent: this.originalEvent || ev,
+      clickOutsideToClose: true
+    });
+    this.originalEvent = null;
+  }
+
+  /**
    * プロフィールのメニューを開きます
    * @param  {[type]} $mdOpenMenu メニューサービス
    * @param  {Object} $event      イベント
    */
   openProfileMenu($mdOpenMenu, $event) {
+    this.originalEvent = $event;
     $mdOpenMenu($event);
   }
 

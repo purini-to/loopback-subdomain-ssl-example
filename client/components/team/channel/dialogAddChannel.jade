@@ -26,4 +26,4 @@ md-dialog.ng-cloak(aria-label="dialogAddChannel")
             div(ng-message="maxlength") 150文字以内で入力してください
     .md-actions.md-layout
       md-button.md-warn(type="button", ng-click="dl.cancel()") キャンセル
-      md-button.md-accent(type="submit") 作成
+      md-button.md-accent(type="submit", ng-disabled="newChannelForm.$invalid") 作成

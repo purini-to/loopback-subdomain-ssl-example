@@ -61,9 +61,11 @@ app.directive('ngEnter', NgEnter.activate);
 
 // モデル系
 import UserModel from '../../services/models/user/user';
+import InvitationModel from '../../services/models/user/invitation';
 import TeamModel from '../../services/models/team/team';
 import ChannelModel from '../../services/models/channel/channel';
 app.factory('userModel', UserModel.activate);
+app.factory('invitationModel', InvitationModel.activate);
 app.factory('teamModel', TeamModel.activate);
 app.factory('channelModel', ChannelModel.activate);
 

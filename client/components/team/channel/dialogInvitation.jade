@@ -1,0 +1,31 @@
+md-dialog.ng-cloak(aria-label="dialogInvitation")
+  form(ng-submit="invitationForm.$invalid ? null : dl.send()", name="invitationForm", novalidate="")
+    md-toolbar
+      .md-toolbar-tools
+        h2 メンバー招待
+        span.flex
+        md-button.md-icon-button(type="button", ng-click="dl.cancel()", aria-label="Close dialog")
+          md-icon close
+    md-dialog-content(x-scrollbar)
+      md-progress-linear.md-accent(md-mode="indeterminate", ng-show="dl.processing")
+      .md-dialog-content
+        p.hide-sm 入力したアドレスへ招待メールを送信します
+        md-input-container.has-messages
+          label メールアドレス
+          input(ng-model="dl.data.email", type="email", name="email", required="", maxlength="30", 
+          x-format="dl.validate.email.format", md-autofocus)
+          div(ng-messages="invitationForm.email.$error")
+            div(ng-message="required") 必須入力です
+            div(ng-message="maxlength") 30文字以内で入力してください
+            div(ng-message="email") 正しいメールアドレスを入力してください
+            div(ng-message="format") 正しいメールアドレスを入力してください
+        md-input-container.has-messages
+          label メッセージ
+          textarea(ng-model="dl.data.message", name="message", rows="2", maxlength="100")
+          div.help-messages
+            div.message メール本文に記載されます(100文字以内)
+          div(ng-messages="invitationForm.message.$error")
+            div(ng-message="maxlength") 100文字以内で入力してください
+    .md-actions.md-layout
+      md-button.md-warn(type="button", ng-click="dl.cancel()") キャンセル
+      md-button.md-accent(type="submit", ng-disabled="invitationForm.$invalid") 送信

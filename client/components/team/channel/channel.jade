@@ -46,5 +46,6 @@ md-content.md-layout-column.flex
           md-icon.medium launch
       div.flex.md-layout
         textarea.text-message.flex(ng-model="vm.message.text", name="text", required="", aria-label="message text", ng-enter="vm.send($event)",
-        rows="1", msd-elastic, spellcheck="false", ng-focus="vm.isInputMessageFocus=true", ng-blur="vm.isInputMessageFocus=false")
+        rows="1", msd-elastic, spellcheck="false", ng-focus="vm.isInputMessageFocus=true", ng-blur="vm.isInputMessageFocus=false",
+        focus-me="true")
   

@@ -17,16 +17,20 @@ section.md-layout.flex
             md-button 
               md-icon accessibility
               | プロフィール
-          md-menu-divider
+          md-divider
           md-menu-item
             md-button 
               md-icon settings
               | チーム設定
           md-menu-item
-            md-button 
+            md-button(ng-click="main.openDialogInvitation($event)") 
+              md-icon redeem
+              | 招待
+          md-menu-item
+            md-button
               md-icon power
               | サービス連携
-          md-menu-divider
+          md-divider
           md-menu-item
             md-button 
               md-icon exit_to_app
