@@ -42,7 +42,7 @@ md-content.md-layout-column.flex
   .channel-footer
     form.md-whiteframe-z1.md-layout.message-form.layout-align-center(ng-submit="messageForm.$invalid ? null : vm.send()", name="messageForm", novalidate="", ng-class="{focus: vm.isInputMessageFocus}")
       div.md-layout
-        md-button.launch.flex.md-accent.md-hue-3(aria-label="launch")
+        md-button.launch.flex.md-accent.md-hue-3(aria-label="launch", type="button")
           md-icon.medium launch
       div.flex.md-layout
         textarea.text-message.flex(ng-model="vm.message.text", name="text", required="", aria-label="message text", ng-enter="vm.send($event)",
