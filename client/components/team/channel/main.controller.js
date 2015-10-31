@@ -42,6 +42,15 @@ export default class MainController {
   }
 
   /**
+   * プロフィールのメニューを開きます
+   * @param  {[type]} $mdOpenMenu メニューサービス
+   * @param  {Object} $event      イベント
+   */
+  openProfileMenu($mdOpenMenu, $event) {
+    $mdOpenMenu($event);
+  }
+
+  /**
    * サイドメニューを閉じます
    */
   close() {

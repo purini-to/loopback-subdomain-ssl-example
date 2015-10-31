@@ -17,6 +17,7 @@ export default class ChannelController {
    */
   constructor($state, $mdSidenav, $stateParams, $timeout, userModel, teamModel,
     channelModel, errorHandler) {
+    channelModel.clear();
     this.state = $state;
     this.sideNav = $mdSidenav;
     this.user = userModel;

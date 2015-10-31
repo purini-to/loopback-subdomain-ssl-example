@@ -2,11 +2,35 @@ section.md-layout.flex
   md-sidenav.md-sidenav-left.md-whiteframe-z2.side-nav(md-component-id="sideNav",
   md-is-locked-open="$mdMedia('gt-md')", x-scrollbar)
     md-toolbar.md-hue-2.profile
-      md-button.flex.md-layout.layout-align-center(ng-click="main.test()")
-        span.team-name {{main.team.team.name}}
-        div.md-layout.layout-align-center
-          md-icon.state adjust
-          span.user-name.flex {{main.user.user.username}}
+      md-menu.flex.md-layout
+        md-button.flex.md-layout.layout-align-center(ng-click="main.openProfileMenu($mdOpenMenu, $event)")
+          span.team-name {{main.team.team.name}}
+          div.md-layout.layout-align-center
+            md-icon.state adjust
+            span.user-name.flex {{main.user.user.username}}
+        md-menu-content(width="4")
+          md-menu-item
+            md-button 
+              md-icon home
+              | ホーム
+          md-menu-item
+            md-button 
+              md-icon accessibility
+              | プロフィール
+          md-menu-divider
+          md-menu-item
+            md-button 
+              md-icon settings
+              | チーム設定
+          md-menu-item
+            md-button 
+              md-icon power
+              | サービス連携
+          md-menu-divider
+          md-menu-item
+            md-button 
+              md-icon exit_to_app
+              | ログアウト
     md-content.flex(x-scrollbar)
       md-subheader
         .md-layout.flex

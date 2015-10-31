@@ -7,10 +7,8 @@ const API = new WeakMap();
 const SOCKET = new WeakMap();
 
 // デフォルトで検索時に指定するフィルタパラメータ
-const DEFAULT_FILTER_PARAMS = {
-  limit: 30,
-  order: 'id desc',
-};
+const DEFAULT_LIMIT = 30;
+const DEFAULT_ORDER = 'id desc';
 
 /**
  * メッセージを追加する関数を生成
@@ -34,9 +32,13 @@ function factoryAddMessageFunc() {
  * @return {String}       フィルタ文字列
  */
 function getFilterParam(skip) {
-  if (skip) DEFAULT_FILTER_PARAMS.skip = skip;
+  var params = {
+    limit: DEFAULT_LIMIT,
+    order: DEFAULT_ORDER
+  };
+  if (skip) params.skip = skip;
   return {
-    filter: JSON.stringify(DEFAULT_FILTER_PARAMS)
+    filter: JSON.stringify(params)
   };
 }
 
@@ -57,6 +59,15 @@ export default class ChannelModel {
     teamSocket.socket.on('add:message', factoryAddMessageFunc());
     API.set(this, Restangular);
     SOCKET.set(this, teamSocket);
+  }
+
+  /**
+   * インスタンス変数を初期化します
+   */
+  clear() {
+    this.channel = {};
+    this.addMessageHook = [];
+    this.isLimitMore = false;
   }
 
   /**
